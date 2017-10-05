@@ -1,0 +1,315 @@
+{
+  "variant": {
+    "label": "Debug",
+    "keywordSettings": {
+      "buildType": "debug"
+    },
+    "description": "Emit debug information without performing optimizations"
+  },
+  "activeEnvironments": [
+    "Visual Studio Community 2017 - amd64"
+  ],
+  "codeModel": {
+    "configurations": [
+      {
+        "name": "Debug",
+        "projects": [
+          {
+            "buildDirectory": "C:/Projects/cpp-blocks/build",
+            "name": "cpp-blocks",
+            "sourceDirectory": "C:/Projects/cpp-blocks",
+            "targets": [
+              {
+                "artifacts": [
+                  "C:/Projects/cpp-blocks/build/bin/Debug/cpp-blocks.exe",
+                  "C:/Projects/cpp-blocks/build/Debug/cpp-blocks.lib",
+                  "C:/Projects/cpp-blocks/build/bin/Debug/cpp-blocks.pdb"
+                ],
+                "buildDirectory": "C:/Projects/cpp-blocks/build",
+                "fileGroups": [
+                  {
+                    "compileFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1  ",
+                    "isGenerated": false,
+                    "language": "CXX",
+                    "sources": [
+                      "src/main.cpp"
+                    ]
+                  },
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "CMakeLists.txt"
+                    ]
+                  }
+                ],
+                "fullName": "cpp-blocks.exe",
+                "linkFlags": "/machine:x64 /debug /INCREMENTAL /subsystem:console",
+                "linkLanguageFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1",
+                "linkLibraries": "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+                "linkerLanguage": "CXX",
+                "name": "cpp-blocks",
+                "sourceDirectory": "C:/Projects/cpp-blocks",
+                "type": "EXECUTABLE"
+              },
+              {
+                "buildDirectory": "C:/Projects/cpp-blocks/build",
+                "fileGroups": [
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "CMakeLists.txt"
+                    ]
+                  }
+                ],
+                "fullName": "ALL_BUILD",
+                "name": "ALL_BUILD",
+                "sourceDirectory": "C:/Projects/cpp-blocks",
+                "type": "UTILITY"
+              },
+              {
+                "buildDirectory": "C:/Projects/cpp-blocks/build",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "build/CMakeFiles/29e05c248a038a27bdac4b619a7b54a6/generate.stamp.rule"
+                    ]
+                  }
+                ],
+                "fullName": "ZERO_CHECK",
+                "name": "ZERO_CHECK",
+                "sourceDirectory": "C:/Projects/cpp-blocks",
+                "type": "UTILITY"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Release",
+        "projects": [
+          {
+            "buildDirectory": "C:/Projects/cpp-blocks/build",
+            "name": "cpp-blocks",
+            "sourceDirectory": "C:/Projects/cpp-blocks",
+            "targets": [
+              {
+                "artifacts": [
+                  "C:/Projects/cpp-blocks/build/bin/Release/cpp-blocks.exe",
+                  "C:/Projects/cpp-blocks/build/Release/cpp-blocks.lib",
+                  "C:/Projects/cpp-blocks/build/bin/Release/cpp-blocks.pdb"
+                ],
+                "buildDirectory": "C:/Projects/cpp-blocks/build",
+                "fileGroups": [
+                  {
+                    "compileFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG  ",
+                    "isGenerated": false,
+                    "language": "CXX",
+                    "sources": [
+                      "src/main.cpp"
+                    ]
+                  },
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "CMakeLists.txt"
+                    ]
+                  }
+                ],
+                "fullName": "cpp-blocks.exe",
+                "linkFlags": "/machine:x64 /INCREMENTAL:NO /subsystem:console",
+                "linkLanguageFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG",
+                "linkLibraries": "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+                "linkerLanguage": "CXX",
+                "name": "cpp-blocks",
+                "sourceDirectory": "C:/Projects/cpp-blocks",
+                "type": "EXECUTABLE"
+              },
+              {
+                "buildDirectory": "C:/Projects/cpp-blocks/build",
+                "fileGroups": [
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "CMakeLists.txt"
+                    ]
+                  }
+                ],
+                "fullName": "ALL_BUILD",
+                "name": "ALL_BUILD",
+                "sourceDirectory": "C:/Projects/cpp-blocks",
+                "type": "UTILITY"
+              },
+              {
+                "buildDirectory": "C:/Projects/cpp-blocks/build",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "build/CMakeFiles/29e05c248a038a27bdac4b619a7b54a6/generate.stamp.rule"
+                    ]
+                  }
+                ],
+                "fullName": "ZERO_CHECK",
+                "name": "ZERO_CHECK",
+                "sourceDirectory": "C:/Projects/cpp-blocks",
+                "type": "UTILITY"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "MinSizeRel",
+        "projects": [
+          {
+            "buildDirectory": "C:/Projects/cpp-blocks/build",
+            "name": "cpp-blocks",
+            "sourceDirectory": "C:/Projects/cpp-blocks",
+            "targets": [
+              {
+                "artifacts": [
+                  "C:/Projects/cpp-blocks/build/bin/MinSizeRel/cpp-blocks.exe",
+                  "C:/Projects/cpp-blocks/build/MinSizeRel/cpp-blocks.lib",
+                  "C:/Projects/cpp-blocks/build/bin/MinSizeRel/cpp-blocks.pdb"
+                ],
+                "buildDirectory": "C:/Projects/cpp-blocks/build",
+                "fileGroups": [
+                  {
+                    "compileFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O1 /Ob1 /DNDEBUG  ",
+                    "isGenerated": false,
+                    "language": "CXX",
+                    "sources": [
+                      "src/main.cpp"
+                    ]
+                  },
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "CMakeLists.txt"
+                    ]
+                  }
+                ],
+                "fullName": "cpp-blocks.exe",
+                "linkFlags": "/machine:x64 /INCREMENTAL:NO /subsystem:console",
+                "linkLanguageFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O1 /Ob1 /DNDEBUG",
+                "linkLibraries": "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+                "linkerLanguage": "CXX",
+                "name": "cpp-blocks",
+                "sourceDirectory": "C:/Projects/cpp-blocks",
+                "type": "EXECUTABLE"
+              },
+              {
+                "buildDirectory": "C:/Projects/cpp-blocks/build",
+                "fileGroups": [
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "CMakeLists.txt"
+                    ]
+                  }
+                ],
+                "fullName": "ALL_BUILD",
+                "name": "ALL_BUILD",
+                "sourceDirectory": "C:/Projects/cpp-blocks",
+                "type": "UTILITY"
+              },
+              {
+                "buildDirectory": "C:/Projects/cpp-blocks/build",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "build/CMakeFiles/29e05c248a038a27bdac4b619a7b54a6/generate.stamp.rule"
+                    ]
+                  }
+                ],
+                "fullName": "ZERO_CHECK",
+                "name": "ZERO_CHECK",
+                "sourceDirectory": "C:/Projects/cpp-blocks",
+                "type": "UTILITY"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "RelWithDebInfo",
+        "projects": [
+          {
+            "buildDirectory": "C:/Projects/cpp-blocks/build",
+            "name": "cpp-blocks",
+            "sourceDirectory": "C:/Projects/cpp-blocks",
+            "targets": [
+              {
+                "artifacts": [
+                  "C:/Projects/cpp-blocks/build/bin/RelWithDebInfo/cpp-blocks.exe",
+                  "C:/Projects/cpp-blocks/build/RelWithDebInfo/cpp-blocks.lib",
+                  "C:/Projects/cpp-blocks/build/bin/RelWithDebInfo/cpp-blocks.pdb"
+                ],
+                "buildDirectory": "C:/Projects/cpp-blocks/build",
+                "fileGroups": [
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "CMakeLists.txt"
+                    ]
+                  },
+                  {
+                    "compileFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG  ",
+                    "isGenerated": false,
+                    "language": "CXX",
+                    "sources": [
+                      "src/main.cpp"
+                    ]
+                  }
+                ],
+                "fullName": "cpp-blocks.exe",
+                "linkFlags": "/machine:x64 /debug /INCREMENTAL /subsystem:console",
+                "linkLanguageFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG",
+                "linkLibraries": "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+                "linkerLanguage": "CXX",
+                "name": "cpp-blocks",
+                "sourceDirectory": "C:/Projects/cpp-blocks",
+                "type": "EXECUTABLE"
+              },
+              {
+                "buildDirectory": "C:/Projects/cpp-blocks/build",
+                "fileGroups": [
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "CMakeLists.txt"
+                    ]
+                  }
+                ],
+                "fullName": "ALL_BUILD",
+                "name": "ALL_BUILD",
+                "sourceDirectory": "C:/Projects/cpp-blocks",
+                "type": "UTILITY"
+              },
+              {
+                "buildDirectory": "C:/Projects/cpp-blocks/build",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "build/CMakeFiles/29e05c248a038a27bdac4b619a7b54a6/generate.stamp.rule"
+                    ]
+                  }
+                ],
+                "fullName": "ZERO_CHECK",
+                "name": "ZERO_CHECK",
+                "sourceDirectory": "C:/Projects/cpp-blocks",
+                "type": "UTILITY"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "cookie": "0.3214491729134801",
+    "inReplyTo": "codemodel",
+    "type": "reply"
+  }
+}
