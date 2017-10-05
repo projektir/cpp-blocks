@@ -29,6 +29,17 @@
                 "fileGroups": [
                   {
                     "compileFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1  ",
+                    "includePath": [
+                      {
+                        "path": "C:/Projects/cpp-blocks/cpp-blocks"
+                      },
+                      {
+                        "path": "C:/Projects/cpp-blocks/Vendor/SDL2/include"
+                      },
+                      {
+                        "path": "C:/Projects/cpp-blocks/Vendor/SDL2_image/include"
+                      }
+                    ],
                     "isGenerated": false,
                     "language": "CXX",
                     "sources": [
@@ -45,7 +56,7 @@
                 "fullName": "cpp-blocks.exe",
                 "linkFlags": "/machine:x64 /debug /INCREMENTAL /subsystem:console",
                 "linkLanguageFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1",
-                "linkLibraries": "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+                "linkLibraries": "..\\Vendor\\SDL2\\lib\\x64\\SDL2.lib ..\\Vendor\\SDL2\\lib\\x64\\SDL2main.lib ..\\Vendor\\SDL2_image\\lib\\x64\\SDL2_image.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
                 "linkerLanguage": "CXX",
                 "name": "cpp-blocks",
                 "sourceDirectory": "C:/Projects/cpp-blocks",
@@ -103,6 +114,17 @@
                 "fileGroups": [
                   {
                     "compileFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG  ",
+                    "includePath": [
+                      {
+                        "path": "C:/Projects/cpp-blocks/cpp-blocks"
+                      },
+                      {
+                        "path": "C:/Projects/cpp-blocks/Vendor/SDL2/include"
+                      },
+                      {
+                        "path": "C:/Projects/cpp-blocks/Vendor/SDL2_image/include"
+                      }
+                    ],
                     "isGenerated": false,
                     "language": "CXX",
                     "sources": [
@@ -119,7 +141,7 @@
                 "fullName": "cpp-blocks.exe",
                 "linkFlags": "/machine:x64 /INCREMENTAL:NO /subsystem:console",
                 "linkLanguageFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG",
-                "linkLibraries": "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+                "linkLibraries": "..\\Vendor\\SDL2\\lib\\x64\\SDL2.lib ..\\Vendor\\SDL2\\lib\\x64\\SDL2main.lib ..\\Vendor\\SDL2_image\\lib\\x64\\SDL2_image.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
                 "linkerLanguage": "CXX",
                 "name": "cpp-blocks",
                 "sourceDirectory": "C:/Projects/cpp-blocks",
@@ -177,6 +199,17 @@
                 "fileGroups": [
                   {
                     "compileFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O1 /Ob1 /DNDEBUG  ",
+                    "includePath": [
+                      {
+                        "path": "C:/Projects/cpp-blocks/cpp-blocks"
+                      },
+                      {
+                        "path": "C:/Projects/cpp-blocks/Vendor/SDL2/include"
+                      },
+                      {
+                        "path": "C:/Projects/cpp-blocks/Vendor/SDL2_image/include"
+                      }
+                    ],
                     "isGenerated": false,
                     "language": "CXX",
                     "sources": [
@@ -193,7 +226,7 @@
                 "fullName": "cpp-blocks.exe",
                 "linkFlags": "/machine:x64 /INCREMENTAL:NO /subsystem:console",
                 "linkLanguageFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O1 /Ob1 /DNDEBUG",
-                "linkLibraries": "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+                "linkLibraries": "..\\Vendor\\SDL2\\lib\\x64\\SDL2.lib ..\\Vendor\\SDL2\\lib\\x64\\SDL2main.lib ..\\Vendor\\SDL2_image\\lib\\x64\\SDL2_image.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
                 "linkerLanguage": "CXX",
                 "name": "cpp-blocks",
                 "sourceDirectory": "C:/Projects/cpp-blocks",
@@ -250,24 +283,35 @@
                 "buildDirectory": "C:/Projects/cpp-blocks/build",
                 "fileGroups": [
                   {
-                    "isGenerated": false,
-                    "sources": [
-                      "CMakeLists.txt"
-                    ]
-                  },
-                  {
                     "compileFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG  ",
+                    "includePath": [
+                      {
+                        "path": "C:/Projects/cpp-blocks/cpp-blocks"
+                      },
+                      {
+                        "path": "C:/Projects/cpp-blocks/Vendor/SDL2/include"
+                      },
+                      {
+                        "path": "C:/Projects/cpp-blocks/Vendor/SDL2_image/include"
+                      }
+                    ],
                     "isGenerated": false,
                     "language": "CXX",
                     "sources": [
                       "src/main.cpp"
+                    ]
+                  },
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "CMakeLists.txt"
                     ]
                   }
                 ],
                 "fullName": "cpp-blocks.exe",
                 "linkFlags": "/machine:x64 /debug /INCREMENTAL /subsystem:console",
                 "linkLanguageFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG",
-                "linkLibraries": "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+                "linkLibraries": "..\\Vendor\\SDL2\\lib\\x64\\SDL2.lib ..\\Vendor\\SDL2\\lib\\x64\\SDL2main.lib ..\\Vendor\\SDL2_image\\lib\\x64\\SDL2_image.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
                 "linkerLanguage": "CXX",
                 "name": "cpp-blocks",
                 "sourceDirectory": "C:/Projects/cpp-blocks",
@@ -308,7 +352,7 @@
         ]
       }
     ],
-    "cookie": "0.3214491729134801",
+    "cookie": "0.338093042304197",
     "inReplyTo": "codemodel",
     "type": "reply"
   }
