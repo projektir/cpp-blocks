@@ -25,7 +25,9 @@ include_directories(${ProjectName} ${SDL2ImageIncludeDirs})
 
 set(SourceFolder src)
 
-add_executable(${ProjectName} ${SourceFolder}/main.cpp)
+include_directories(${ProjectName} "C:/Projects/${ProjectName}")
+
+add_executable(${ProjectName} ${SourceFolder}/main.cpp ${SourceFolder}/game.hpp ${SourceFolder}/game.cpp)
 
 target_link_libraries(${ProjectName} ${SDL2Libraries})
 target_link_libraries(${ProjectName} ${SDL2ImageLibraries})
