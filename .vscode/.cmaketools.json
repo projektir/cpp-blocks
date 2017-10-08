@@ -20,6 +20,36 @@
             "sourceDirectory": "C:/Projects/cpp-blocks",
             "targets": [
               {
+                "buildDirectory": "C:/Projects/cpp-blocks/build",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "build/CMakeFiles/29e05c248a038a27bdac4b619a7b54a6/generate.stamp.rule"
+                    ]
+                  }
+                ],
+                "fullName": "ZERO_CHECK",
+                "name": "ZERO_CHECK",
+                "sourceDirectory": "C:/Projects/cpp-blocks",
+                "type": "UTILITY"
+              },
+              {
+                "buildDirectory": "C:/Projects/cpp-blocks/build",
+                "fileGroups": [
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "CMakeLists.txt"
+                    ]
+                  }
+                ],
+                "fullName": "ALL_BUILD",
+                "name": "ALL_BUILD",
+                "sourceDirectory": "C:/Projects/cpp-blocks",
+                "type": "UTILITY"
+              },
+              {
                 "artifacts": [
                   "C:/Projects/cpp-blocks/build/bin/Debug/cpp-blocks.exe",
                   "C:/Projects/cpp-blocks/build/Debug/cpp-blocks.lib",
@@ -61,6 +91,33 @@
                 "name": "cpp-blocks",
                 "sourceDirectory": "C:/Projects/cpp-blocks",
                 "type": "EXECUTABLE"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Release",
+        "projects": [
+          {
+            "buildDirectory": "C:/Projects/cpp-blocks/build",
+            "name": "cpp-blocks",
+            "sourceDirectory": "C:/Projects/cpp-blocks",
+            "targets": [
+              {
+                "buildDirectory": "C:/Projects/cpp-blocks/build",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "build/CMakeFiles/29e05c248a038a27bdac4b619a7b54a6/generate.stamp.rule"
+                    ]
+                  }
+                ],
+                "fullName": "ZERO_CHECK",
+                "name": "ZERO_CHECK",
+                "sourceDirectory": "C:/Projects/cpp-blocks",
+                "type": "UTILITY"
               },
               {
                 "buildDirectory": "C:/Projects/cpp-blocks/build",
@@ -77,33 +134,6 @@
                 "sourceDirectory": "C:/Projects/cpp-blocks",
                 "type": "UTILITY"
               },
-              {
-                "buildDirectory": "C:/Projects/cpp-blocks/build",
-                "fileGroups": [
-                  {
-                    "isGenerated": true,
-                    "sources": [
-                      "build/CMakeFiles/29e05c248a038a27bdac4b619a7b54a6/generate.stamp.rule"
-                    ]
-                  }
-                ],
-                "fullName": "ZERO_CHECK",
-                "name": "ZERO_CHECK",
-                "sourceDirectory": "C:/Projects/cpp-blocks",
-                "type": "UTILITY"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "Release",
-        "projects": [
-          {
-            "buildDirectory": "C:/Projects/cpp-blocks/build",
-            "name": "cpp-blocks",
-            "sourceDirectory": "C:/Projects/cpp-blocks",
-            "targets": [
               {
                 "artifacts": [
                   "C:/Projects/cpp-blocks/build/bin/Release/cpp-blocks.exe",
@@ -146,6 +176,33 @@
                 "name": "cpp-blocks",
                 "sourceDirectory": "C:/Projects/cpp-blocks",
                 "type": "EXECUTABLE"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "MinSizeRel",
+        "projects": [
+          {
+            "buildDirectory": "C:/Projects/cpp-blocks/build",
+            "name": "cpp-blocks",
+            "sourceDirectory": "C:/Projects/cpp-blocks",
+            "targets": [
+              {
+                "buildDirectory": "C:/Projects/cpp-blocks/build",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "build/CMakeFiles/29e05c248a038a27bdac4b619a7b54a6/generate.stamp.rule"
+                    ]
+                  }
+                ],
+                "fullName": "ZERO_CHECK",
+                "name": "ZERO_CHECK",
+                "sourceDirectory": "C:/Projects/cpp-blocks",
+                "type": "UTILITY"
               },
               {
                 "buildDirectory": "C:/Projects/cpp-blocks/build",
@@ -162,33 +219,6 @@
                 "sourceDirectory": "C:/Projects/cpp-blocks",
                 "type": "UTILITY"
               },
-              {
-                "buildDirectory": "C:/Projects/cpp-blocks/build",
-                "fileGroups": [
-                  {
-                    "isGenerated": true,
-                    "sources": [
-                      "build/CMakeFiles/29e05c248a038a27bdac4b619a7b54a6/generate.stamp.rule"
-                    ]
-                  }
-                ],
-                "fullName": "ZERO_CHECK",
-                "name": "ZERO_CHECK",
-                "sourceDirectory": "C:/Projects/cpp-blocks",
-                "type": "UTILITY"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "MinSizeRel",
-        "projects": [
-          {
-            "buildDirectory": "C:/Projects/cpp-blocks/build",
-            "name": "cpp-blocks",
-            "sourceDirectory": "C:/Projects/cpp-blocks",
-            "targets": [
               {
                 "artifacts": [
                   "C:/Projects/cpp-blocks/build/bin/MinSizeRel/cpp-blocks.exe",
@@ -231,6 +261,33 @@
                 "name": "cpp-blocks",
                 "sourceDirectory": "C:/Projects/cpp-blocks",
                 "type": "EXECUTABLE"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "RelWithDebInfo",
+        "projects": [
+          {
+            "buildDirectory": "C:/Projects/cpp-blocks/build",
+            "name": "cpp-blocks",
+            "sourceDirectory": "C:/Projects/cpp-blocks",
+            "targets": [
+              {
+                "buildDirectory": "C:/Projects/cpp-blocks/build",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "build/CMakeFiles/29e05c248a038a27bdac4b619a7b54a6/generate.stamp.rule"
+                    ]
+                  }
+                ],
+                "fullName": "ZERO_CHECK",
+                "name": "ZERO_CHECK",
+                "sourceDirectory": "C:/Projects/cpp-blocks",
+                "type": "UTILITY"
               },
               {
                 "buildDirectory": "C:/Projects/cpp-blocks/build",
@@ -247,33 +304,6 @@
                 "sourceDirectory": "C:/Projects/cpp-blocks",
                 "type": "UTILITY"
               },
-              {
-                "buildDirectory": "C:/Projects/cpp-blocks/build",
-                "fileGroups": [
-                  {
-                    "isGenerated": true,
-                    "sources": [
-                      "build/CMakeFiles/29e05c248a038a27bdac4b619a7b54a6/generate.stamp.rule"
-                    ]
-                  }
-                ],
-                "fullName": "ZERO_CHECK",
-                "name": "ZERO_CHECK",
-                "sourceDirectory": "C:/Projects/cpp-blocks",
-                "type": "UTILITY"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "RelWithDebInfo",
-        "projects": [
-          {
-            "buildDirectory": "C:/Projects/cpp-blocks/build",
-            "name": "cpp-blocks",
-            "sourceDirectory": "C:/Projects/cpp-blocks",
-            "targets": [
               {
                 "artifacts": [
                   "C:/Projects/cpp-blocks/build/bin/RelWithDebInfo/cpp-blocks.exe",
@@ -316,43 +346,13 @@
                 "name": "cpp-blocks",
                 "sourceDirectory": "C:/Projects/cpp-blocks",
                 "type": "EXECUTABLE"
-              },
-              {
-                "buildDirectory": "C:/Projects/cpp-blocks/build",
-                "fileGroups": [
-                  {
-                    "isGenerated": false,
-                    "sources": [
-                      "CMakeLists.txt"
-                    ]
-                  }
-                ],
-                "fullName": "ALL_BUILD",
-                "name": "ALL_BUILD",
-                "sourceDirectory": "C:/Projects/cpp-blocks",
-                "type": "UTILITY"
-              },
-              {
-                "buildDirectory": "C:/Projects/cpp-blocks/build",
-                "fileGroups": [
-                  {
-                    "isGenerated": true,
-                    "sources": [
-                      "build/CMakeFiles/29e05c248a038a27bdac4b619a7b54a6/generate.stamp.rule"
-                    ]
-                  }
-                ],
-                "fullName": "ZERO_CHECK",
-                "name": "ZERO_CHECK",
-                "sourceDirectory": "C:/Projects/cpp-blocks",
-                "type": "UTILITY"
               }
             ]
           }
         ]
       }
     ],
-    "cookie": "0.338093042304197",
+    "cookie": "0.11675546608693632",
     "inReplyTo": "codemodel",
     "type": "reply"
   }
