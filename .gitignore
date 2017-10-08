@@ -20,3 +20,6 @@ bin
 x32
 x64
 cpp-blocks.dir
+
+# VSCode
+.vscode/.cmaketools.json

@@ -5,7 +5,8 @@
 const int SQUARE_SIZE = 40;
 enum Direction {UP, DOWN, LEFT, RIGHT};
 
-int move_square();
+int move_rect(SDL_Renderer *renderer, SDL_Texture* texture,
+    SDL_Rect *source_rect, SDL_Rect *dest_rect, Direction direction);
 
 int main(int argc, char *argv[])
 {
@@ -69,15 +70,26 @@ int main(int argc, char *argv[])
             switch (event.type) {
                 case SDL_KEYDOWN:
                     keycode = event.key.keysym.sym;
+                    switch(keycode) {
                         case SDLK_a:
-                        case SDLK_w:
-                        case SDLK_s:
-                            std::cout << "The S key has been pressed." << std::endl;
-                            SDL_RenderClear(renderer);
-                            dest_rect.y += SQUARE_SIZE;
-                            SDL_RenderCopy(renderer, texture, &source_rect, &dest_rect);
-                            SDL_RenderPresent(renderer);
+                            move_rect(renderer, texture, &source_rect, &dest_rect,
+                                Direction::LEFT);
+                            break;
                         case SDLK_d:
+                            move_rect(renderer, texture, &source_rect, &dest_rect,
+                                Direction::RIGHT);
+                            break;
+                        case SDLK_s:
+                            move_rect(renderer, texture, &source_rect, &dest_rect,
+                                Direction::DOWN);
+                            break;
+                        case SDLK_w:
+                            move_rect(renderer, texture, &source_rect, &dest_rect,
+                                Direction::UP);
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case SDL_QUIT:
                     quit = true;
@@ -97,6 +109,29 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-int move_square() {
+// Convert this to a move-figure later
+int move_rect(SDL_Renderer *renderer, SDL_Texture* texture,
+    SDL_Rect *source_rect, SDL_Rect *dest_rect, Direction direction) {
+
+    SDL_RenderClear(renderer);
+
+    switch (direction) {
+        case Direction::UP:
+            dest_rect->y -= SQUARE_SIZE;
+            break;
+        case Direction::DOWN:
+            dest_rect->y += SQUARE_SIZE;
+            break;
+        case Direction::LEFT:
+            dest_rect->x -= SQUARE_SIZE;
+            break;
+        case Direction::RIGHT:
+            dest_rect->x += SQUARE_SIZE;
+            break;
+    }
+
+    SDL_RenderCopy(renderer, texture, source_rect, dest_rect);
+    SDL_RenderPresent(renderer);
+
     return 0;
 }
