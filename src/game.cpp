@@ -96,8 +96,6 @@ int init() {
     SDL_Quit();
 
     return 0;
-
-    return 0;
 }
 
 // Convert this to a move-figure later

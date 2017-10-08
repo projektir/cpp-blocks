@@ -5,7 +5,7 @@
 #include "SDL.h"
 #include "SDL_image.h"
 
-const int SQUARE_SIZE = 40;
+const int SQUARE_SIZE = 20;
 
 enum Direction {UP, DOWN, LEFT, RIGHT};
 
