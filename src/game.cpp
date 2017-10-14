@@ -1,25 +1,21 @@
 #include "game.hpp"
+#include "context.hpp"
+
+Context* init(Context* context);
+
+int cleanup(Context* context, SDL_Texture* texture);
 
 bool process_event(SDL_Event* event,
-    SDL_Renderer *renderer, SDL_Texture* texture,
-    SDL_Rect *source_rect, SDL_Rect *dest_rect);
+    SDL_Renderer* renderer, SDL_Texture* texture,
+    SDL_Rect* source_rect, SDL_Rect* dest_rect);
 
 void process_key(SDL_Keycode keycode,
-    SDL_Renderer *renderer, SDL_Texture* texture,
-    SDL_Rect *source_rect, SDL_Rect *dest_rect);
+    SDL_Renderer* renderer, SDL_Texture* texture,
+    SDL_Rect* source_rect, SDL_Rect* dest_rect);
 
-int init() {
-    SDL_Init(SDL_INIT_VIDEO);
-
-    SDL_Window *window = SDL_CreateWindow("cpp-blocks",
-        SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-        640, 880,
-        0
-    );
-
-    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+int start() {
+    Context ctx;
+    ctx = *init(&ctx);
 
     SDL_Rect source_rect;
     SDL_Rect dest_rect;
@@ -40,36 +36,55 @@ int init() {
         << IMG_GetError() << "\n";
     }
 
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(ctx.renderer, surface);
 
     SDL_FreeSurface(surface);
 
-    SDL_RenderCopy(renderer, texture, &source_rect, &dest_rect);
-    SDL_RenderPresent(renderer);
+    SDL_RenderCopy(ctx.renderer, texture, &source_rect, &dest_rect);
+    SDL_RenderPresent(ctx.renderer);
 
-    SDL_Delay(300);
-
-
-    SDL_RenderClear(renderer);
+    SDL_RenderClear(ctx.renderer);
     dest_rect.x = 40;
     dest_rect.y = 40;
-    SDL_RenderCopy(renderer, texture, &source_rect, &dest_rect);
-    SDL_RenderPresent(renderer);
+    SDL_RenderCopy(ctx.renderer, texture, &source_rect, &dest_rect);
+    SDL_RenderPresent(ctx.renderer);
 
     bool quit = false;
     SDL_Event event;
 
     while (!quit) {
         while (SDL_PollEvent(&event)) {
-            if (process_event(&event, renderer, texture, &source_rect, &dest_rect)) {
+            if (process_event(&event, ctx.renderer, texture, &source_rect, &dest_rect)) {
                 quit = true;
             }
         }
     }
 
+    cleanup(&ctx, texture);
+
+    return 0;
+}
+
+Context* init(Context* context) {
+    SDL_Init(SDL_INIT_VIDEO);
+
+    context->window = SDL_CreateWindow("cpp-blocks",
+        SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+        SCREEN_WIDTH, SCREEN_HEIGHT,
+        0
+    );
+
+    context->renderer = SDL_CreateRenderer(context->window, -1, SDL_RENDERER_ACCELERATED);
+
+    SDL_SetRenderDrawColor(context->renderer, 0, 0, 0, 255);
+
+    return context;
+}
+
+int cleanup(Context* context, SDL_Texture* texture) {
     SDL_DestroyTexture(texture);
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(context->renderer);
+    SDL_DestroyWindow(context->window);
 
     SDL_Quit();
 
@@ -77,8 +92,8 @@ int init() {
 }
 
 bool process_event(SDL_Event* event,
-    SDL_Renderer *renderer, SDL_Texture* texture,
-    SDL_Rect *source_rect, SDL_Rect *dest_rect) {
+    SDL_Renderer* renderer, SDL_Texture* texture,
+    SDL_Rect* source_rect, SDL_Rect* dest_rect) {
 
     switch (event->type) {
         case SDL_KEYDOWN:
@@ -96,8 +111,8 @@ bool process_event(SDL_Event* event,
 }
 
 void process_key(SDL_Keycode keycode,
-    SDL_Renderer *renderer, SDL_Texture* texture,
-    SDL_Rect *source_rect, SDL_Rect *dest_rect) {
+    SDL_Renderer* renderer, SDL_Texture* texture,
+    SDL_Rect* source_rect, SDL_Rect* dest_rect) {
     
     switch (keycode) {
         case SDLK_a:
@@ -122,8 +137,8 @@ void process_key(SDL_Keycode keycode,
 }
 
 // Convert this to a move-figure later
-int move_rect(SDL_Renderer *renderer, SDL_Texture* texture,
-    SDL_Rect *source_rect, SDL_Rect *dest_rect, Direction direction) {
+int move_rect(SDL_Renderer* renderer, SDL_Texture* texture,
+    SDL_Rect* source_rect, SDL_Rect* dest_rect, Direction direction) {
 
     SDL_RenderClear(renderer);
 
