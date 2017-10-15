@@ -21,6 +21,8 @@ struct XY {
     int y = 0;
 };
 
+bool operator<(XY a, XY b);
+
 /* These shouldn't be here, move somewhere else */
 
 enum FigureType {O, I, T, S, L, J};
@@ -30,8 +32,6 @@ struct FigureVariant {
     vector<vector<XY>> rotations;
 };
 
-vector<FigureVariant> create_figures();
-
 class Figure {
 public:
     FigureVariant variant;
@@ -40,5 +40,7 @@ public:
 
     void initialize();
 };
+
+vector<FigureVariant> create_figures();
 
 #endif /* FIG_HPP */

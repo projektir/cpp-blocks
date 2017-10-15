@@ -22,9 +22,20 @@ int start() {
 
     figure.initialize();
 
+    map<XY, bool> grid;
+
+    int grid_width = SCREEN_WIDTH / SQUARE_SIZE;
+    int grid_height = SCREEN_HEIGHT / SQUARE_SIZE;
+    for (int x = 0; x < grid_width; x++) {
+        for (int y = 0; y < grid_height; y++) {
+            XY xy = {x, y};
+            grid[xy] = false;
+        }
+    }
+
     SDL_Surface* surface = IMG_Load("C:/Projects/cpp-blocks/build/bin/Debug/square.png");
     if (surface == NULL ) {
-        std::cout << "Unable to load image square_large.png! IMG_GetError Error: "
+        std::cout << "Unable to load image square.png! IMG_GetError Error: "
         << IMG_GetError() << "\n";
     }
 
@@ -166,8 +177,6 @@ int move_figure(SDL_Renderer *renderer, SDL_Texture* texture, SDL_Rect *source_r
         SDL_RenderCopy(renderer, texture, source_rect, &rect);
         SDL_RenderPresent(renderer);
     }
-
-    SDL_RenderPresent(renderer);
 
     return 0;
 }

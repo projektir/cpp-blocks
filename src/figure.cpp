@@ -1,5 +1,25 @@
 #include "figure.hpp"
 
+void Figure::initialize() {
+    rotation = 0;
+
+    for (int i = 0; i < variant.rotations[rotation].size(); i++) {
+        auto rotation_offsets = variant.rotations[rotation][i];
+
+        SDL_Rect rect;
+        rect.x = (rotation_offsets.x * SQUARE_SIZE);
+        rect.y = (rotation_offsets.y * SQUARE_SIZE);
+        rect.w = SQUARE_SIZE;
+        rect.h = SQUARE_SIZE;
+
+        squares.push_back(rect);
+    }
+}
+
+bool operator<(XY a, XY b) {
+    return make_pair(a.x, a.y) < make_pair(b.x, b.y);
+}
+
 vector<FigureVariant> create_figures() {
     vector<FigureVariant> figures;
 
@@ -39,20 +59,4 @@ vector<FigureVariant> create_figures() {
     o.rotations.push_back(i_rotation2);
 
     return figures;
-}
-
-void Figure::initialize() {
-    rotation = 0;
-
-    for (int i = 0; i < variant.rotations[rotation].size(); i++) {
-        auto rotation_offsets = variant.rotations[rotation][i];
-
-        SDL_Rect rect;
-        rect.x = (rotation_offsets.x * SQUARE_SIZE);
-        rect.y = (rotation_offsets.y * SQUARE_SIZE);
-        rect.w = SQUARE_SIZE;
-        rect.h = SQUARE_SIZE;
-
-        squares.push_back(rect);
-    }
 }
