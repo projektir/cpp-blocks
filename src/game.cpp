@@ -1,6 +1,6 @@
 #include "game.hpp"
 
-Context* init(Context* context);
+Context init_ctx();
 
 int cleanup(Context* context, SDL_Texture* texture);
 
@@ -13,12 +13,15 @@ void process_key(SDL_Keycode keycode,
     SDL_Rect* source_rect, SDL_Rect* dest_rect);
 
 int start() {
-    Context ctx;
-    ctx = *init(&ctx);
+    Context ctx = init_ctx();
 
     vector<FigureVariant> figures = create_figures();
 
-    
+    if (!figures.empty()) {
+        FigureVariant current_variant = figures[0];
+    }
+
+    XY figure_location = {0, 0};
 
     SDL_Rect source_rect;
     SDL_Rect dest_rect;
@@ -46,12 +49,6 @@ int start() {
     SDL_RenderCopy(ctx.renderer, texture, &source_rect, &dest_rect);
     SDL_RenderPresent(ctx.renderer);
 
-    SDL_RenderClear(ctx.renderer);
-    dest_rect.x = 40;
-    dest_rect.y = 40;
-    SDL_RenderCopy(ctx.renderer, texture, &source_rect, &dest_rect);
-    SDL_RenderPresent(ctx.renderer);
-
     bool quit = false;
     SDL_Event event;
 
@@ -68,26 +65,34 @@ int start() {
     return 0;
 }
 
-Context* init(Context* context) {
+Context init_ctx() {
+    Context ctx;
+
+    ctx.renderer = nullptr;
+    ctx.window = nullptr;
+
     SDL_Init(SDL_INIT_VIDEO);
 
-    context->window = SDL_CreateWindow("cpp-blocks",
+    ctx.window = SDL_CreateWindow("cpp-blocks",
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
         SCREEN_WIDTH, SCREEN_HEIGHT,
         0
     );
 
-    context->renderer = SDL_CreateRenderer(context->window, -1, SDL_RENDERER_ACCELERATED);
+    ctx.renderer = SDL_CreateRenderer(ctx.window, -1, SDL_RENDERER_ACCELERATED);
 
-    SDL_SetRenderDrawColor(context->renderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(ctx.renderer, 0, 0, 0, 255);
 
-    return context;
+    return ctx;
 }
 
 int cleanup(Context* context, SDL_Texture* texture) {
     SDL_DestroyTexture(texture);
     SDL_DestroyRenderer(context->renderer);
     SDL_DestroyWindow(context->window);
+
+    context->renderer = nullptr;
+    context->window = nullptr;
 
     SDL_Quit();
 

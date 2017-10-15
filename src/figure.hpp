@@ -13,10 +13,10 @@ struct XY {
     int y;
 };
 
-enum Figure {O, I, T, S, L, J};
+enum FigureType {O, I, T, S, L, J};
 
 struct FigureVariant {
-    Figure type;
+    FigureType type;
     vector<vector<XY>> rotations;
 };
 

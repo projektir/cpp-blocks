@@ -20,7 +20,7 @@ vector<FigureVariant> create_figures() {
 
     vector<XY> o_rotation = {p00, p01, p10, p11};
 
-    o.type = Figure::O;   
+    o.type = FigureType::O;   
     o.rotations.push_back(o_rotation);
 
     figures.push_back(o);
@@ -34,7 +34,7 @@ vector<FigureVariant> create_figures() {
     vector<XY> i_rotation1 = {p00, p01, p02, p03};
     vector<XY> i_rotation2 = {p00, p10, p20, p30};
 
-    o.type = Figure::I;
+    o.type = FigureType::I;
     o.rotations.push_back(i_rotation1);
     o.rotations.push_back(i_rotation2);
 
