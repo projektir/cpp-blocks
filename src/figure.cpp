@@ -42,15 +42,14 @@ vector<FigureVariant> create_figures() {
 }
 
 void Figure::initialize() {
-    location = {0, 0};
     rotation = 0;
 
     for (int i = 0; i < variant.rotations[rotation].size(); i++) {
         auto rotation_offsets = variant.rotations[rotation][i];
 
         SDL_Rect rect;
-        rect.x = rotation_offsets.x;
-        rect.y = rotation_offsets.y;
+        rect.x = (rotation_offsets.x * SQUARE_SIZE);
+        rect.y = (rotation_offsets.y * SQUARE_SIZE);
         rect.w = SQUARE_SIZE;
         rect.h = SQUARE_SIZE;
 

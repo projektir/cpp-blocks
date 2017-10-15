@@ -6,24 +6,21 @@ int cleanup(Context* context, SDL_Texture* texture);
 
 bool process_event(SDL_Event* event,
     SDL_Renderer* renderer, SDL_Texture* texture,
-    SDL_Rect* source_rect, SDL_Rect* dest_rect);
+    Figure& figure, SDL_Rect* source_rect);
 
 void process_key(SDL_Keycode keycode,
     SDL_Renderer* renderer, SDL_Texture* texture,
-    SDL_Rect* source_rect, SDL_Rect* dest_rect);
+    Figure& figure, SDL_Rect* source_rect);
 
 int start() {
     Context ctx = init_ctx();
     vector<FigureVariant> figures = create_figures();
 
     Figure figure;
+    // Remove this when figures are generated randomly
     figure.variant = figures[0];
 
-    SDL_Rect dest_rect;
-    dest_rect.x = 0;
-    dest_rect.y = 0;
-    dest_rect.w = SQUARE_SIZE;
-    dest_rect.h = SQUARE_SIZE;
+    figure.initialize();
 
     SDL_Surface* surface = IMG_Load("C:/Projects/cpp-blocks/build/bin/Debug/square.png");
     if (surface == NULL ) {
@@ -41,15 +38,14 @@ int start() {
     source_rect.w = SQUARE_SIZE;
     source_rect.h = SQUARE_SIZE;
 
-    SDL_RenderCopy(ctx.renderer, texture, &source_rect, &dest_rect);
-    SDL_RenderPresent(ctx.renderer);
+    draw_figure(ctx.renderer, texture, source_rect, figure);
 
     bool quit = false;
     SDL_Event event;
 
     while (!quit) {
         while (SDL_PollEvent(&event)) {
-            if (process_event(&event, ctx.renderer, texture, &source_rect, &dest_rect)) {
+            if (process_event(&event, ctx.renderer, texture, figure, &source_rect)) {
                 quit = true;
             }
         }
@@ -96,12 +92,12 @@ int cleanup(Context* context, SDL_Texture* texture) {
 
 bool process_event(SDL_Event* event,
     SDL_Renderer* renderer, SDL_Texture* texture,
-    SDL_Rect* source_rect, SDL_Rect* dest_rect) {
+    Figure& figure, SDL_Rect* source_rect) {
 
     switch (event->type) {
         case SDL_KEYDOWN:
             process_key(event->key.keysym.sym, renderer, texture,
-                source_rect, dest_rect);
+                figure, source_rect);
             break;
         case SDL_QUIT:
             return true;
@@ -115,52 +111,62 @@ bool process_event(SDL_Event* event,
 
 void process_key(SDL_Keycode keycode,
     SDL_Renderer* renderer, SDL_Texture* texture,
-    SDL_Rect* source_rect, SDL_Rect* dest_rect) {
+    Figure& figure, SDL_Rect* source_rect) {
     
     switch (keycode) {
         case SDLK_a:
-            move_rect(renderer, texture, source_rect, dest_rect,
-                Direction::LEFT);
+            move_figure(renderer, texture, source_rect, figure, Direction::LEFT);
             break;
         case SDLK_d:
-            move_rect(renderer, texture, source_rect, dest_rect,
-                Direction::RIGHT);
+            move_figure(renderer, texture, source_rect, figure, Direction::RIGHT);
             break;
         case SDLK_s:
-            move_rect(renderer, texture, source_rect, dest_rect,
-                Direction::DOWN);
+            move_figure(renderer, texture, source_rect, figure, Direction::DOWN);
             break;
         case SDLK_w:
-            move_rect(renderer, texture, source_rect, dest_rect,
-                Direction::UP);
+            move_figure(renderer, texture, source_rect, figure, Direction::UP);
             break;
         default:
             break;
     }
 }
 
-// Convert this to a move-figure later
-int move_rect(SDL_Renderer* renderer, SDL_Texture* texture,
-    SDL_Rect* source_rect, SDL_Rect* dest_rect, Direction direction) {
-
-    SDL_RenderClear(renderer);
-
-    switch (direction) {
-        case Direction::UP:
-            dest_rect->y -= SQUARE_SIZE;
-            break;
-        case Direction::DOWN:
-            dest_rect->y += SQUARE_SIZE;
-            break;
-        case Direction::LEFT:
-            dest_rect->x -= SQUARE_SIZE;
-            break;
-        case Direction::RIGHT:
-            dest_rect->x += SQUARE_SIZE;
-            break;
+int draw_figure(SDL_Renderer *renderer, SDL_Texture* texture, SDL_Rect& source_rect, Figure& figure) {
+    for (int i = 0; i < figure.squares.size(); i++) {
+        auto rect = figure.squares[i];
+        SDL_RenderCopy(renderer, texture, &source_rect, &rect);
     }
 
-    SDL_RenderCopy(renderer, texture, source_rect, dest_rect);
+    SDL_RenderPresent(renderer);
+
+    return 0;
+}
+
+int move_figure(SDL_Renderer *renderer, SDL_Texture* texture, SDL_Rect *source_rect, Figure& figure, Direction direction) {
+    SDL_RenderClear(renderer);
+
+    for (int i = 0; i < figure.squares.size(); i++) {
+        SDL_Rect& rect = figure.squares.at(i);
+
+        switch (direction) {
+            case Direction::UP:
+                rect.y -= SQUARE_SIZE;
+                break;
+            case Direction::DOWN:
+                rect.y += SQUARE_SIZE;
+                break;
+            case Direction::LEFT:
+                rect.x -= SQUARE_SIZE;
+                break;
+            case Direction::RIGHT:
+                rect.x += SQUARE_SIZE;
+                break;
+        }
+
+        SDL_RenderCopy(renderer, texture, source_rect, &rect);
+        SDL_RenderPresent(renderer);
+    }
+
     SDL_RenderPresent(renderer);
 
     return 0;

@@ -35,7 +35,6 @@ vector<FigureVariant> create_figures();
 class Figure {
 public:
     FigureVariant variant;
-    XY location;
     char rotation;
     vector<SDL_Rect> squares;
 
