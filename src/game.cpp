@@ -14,27 +14,16 @@ void process_key(SDL_Keycode keycode,
 
 int start() {
     Context ctx = init_ctx();
-
     vector<FigureVariant> figures = create_figures();
 
-    if (!figures.empty()) {
-        FigureVariant current_variant = figures[0];
-    }
+    Figure figure;
+    figure.variant = figures[0];
 
-    XY figure_location = {0, 0};
-
-    SDL_Rect source_rect;
     SDL_Rect dest_rect;
-
-    source_rect.x = 0;
-    source_rect.y = 0;
-    source_rect.w = SQUARE_SIZE;
-    source_rect.h = SQUARE_SIZE;
-
     dest_rect.x = 0;
     dest_rect.y = 0;
     dest_rect.w = SQUARE_SIZE;
-    dest_rect.h = SQUARE_SIZE;    
+    dest_rect.h = SQUARE_SIZE;
 
     SDL_Surface* surface = IMG_Load("C:/Projects/cpp-blocks/build/bin/Debug/square.png");
     if (surface == NULL ) {
@@ -45,6 +34,12 @@ int start() {
     SDL_Texture* texture = SDL_CreateTextureFromSurface(ctx.renderer, surface);
 
     SDL_FreeSurface(surface);
+
+    SDL_Rect source_rect;
+    source_rect.x = 0;
+    source_rect.y = 0;
+    source_rect.w = SQUARE_SIZE;
+    source_rect.h = SQUARE_SIZE;
 
     SDL_RenderCopy(ctx.renderer, texture, &source_rect, &dest_rect);
     SDL_RenderPresent(ctx.renderer);

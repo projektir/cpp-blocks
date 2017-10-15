@@ -8,10 +8,20 @@
 
 using namespace std;
 
+/* These shouldn't be here, move somewhere else */
+
+const int SCREEN_WIDTH = 640;
+const int SCREEN_HEIGHT = 880;
+const int SQUARE_SIZE = 40;
+
+enum Direction {UP, DOWN, LEFT, RIGHT};
+
 struct XY {
-    int x;
-    int y;
+    int x = 0;
+    int y = 0;
 };
+
+/* These shouldn't be here, move somewhere else */
 
 enum FigureType {O, I, T, S, L, J};
 
@@ -21,5 +31,15 @@ struct FigureVariant {
 };
 
 vector<FigureVariant> create_figures();
+
+class Figure {
+public:
+    FigureVariant variant;
+    XY location;
+    char rotation;
+    vector<SDL_Rect> squares;
+
+    void initialize();
+};
 
 #endif /* FIG_HPP */
