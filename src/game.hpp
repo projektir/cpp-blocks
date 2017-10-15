@@ -5,9 +5,12 @@
 #include "SDL.h"
 #include "SDL_image.h"
 
+#include "context.hpp"
+#include "figure.hpp"
+
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 880;
-const int SQUARE_SIZE = 20;
+const int SQUARE_SIZE = 40;
 
 enum Direction {UP, DOWN, LEFT, RIGHT};
 

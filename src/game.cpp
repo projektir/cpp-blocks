@@ -1,5 +1,4 @@
 #include "game.hpp"
-#include "context.hpp"
 
 Context* init(Context* context);
 
@@ -16,6 +15,10 @@ void process_key(SDL_Keycode keycode,
 int start() {
     Context ctx;
     ctx = *init(&ctx);
+
+    vector<FigureVariant> figures = create_figures();
+
+    
 
     SDL_Rect source_rect;
     SDL_Rect dest_rect;

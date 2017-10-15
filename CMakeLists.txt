@@ -31,6 +31,7 @@ include_directories(${ProjectName} "C:/Projects/${ProjectName}")
 
 add_executable(${ProjectName} ${SourceFolder}/main.cpp
     ${SourceFolder}/game.hpp ${SourceFolder}/game.cpp
+    ${SourceFolder}/figure.hpp ${SourceFolder}/figure.cpp
     ${SourceFolder}/context.hpp)
 
 target_link_libraries(${ProjectName} ${SDL2Libraries})
