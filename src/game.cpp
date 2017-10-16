@@ -194,9 +194,7 @@ bool will_collide(Figure& figure, map<XY, bool>& grid, Direction direction) {
         }
 
         if (!colliding) {
-            XY xy;
-            xy.x = test_rect.x;
-            xy.y = test_rect.y;
+            XY xy = {test_rect.x / SQUARE_SIZE, test_rect.y / SQUARE_SIZE};
             if (grid[xy]) {
                 colliding = true;
             }
