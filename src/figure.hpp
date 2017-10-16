@@ -1,35 +1,32 @@
 #ifndef FIG_HPP
 #define FIG_HPP
 
-#include "SDL.h"
-#include "SDL_image.h"
-#include <utility>
+#include <map>
 #include <vector>
+#include <exception>
 
-#include "texture.hpp"
+#include "SDL.h"
+
+#include <SDL2pp/SDL2pp.hh>
+
 #include "utils.hpp"
-#include "context.hpp"
+#include "figure_variant.hpp"
 
 using namespace std;
 
-enum FigureType {O, I, T, S, L, J};
-
-struct FigureVariant {
-    FigureType type;
-    vector<vector<XY>> rotations;
-};
-
-vector<FigureVariant> create_figures();
-
 class Figure {
+    bool will_collide(map<XY, bool>& grid, Direction direction);
 public:
-    FigureVariant variant;
+    FigureVariant* variant;
     char rotation;
-    Texture& texture;
-    vector<SDL_Rect> squares;
+    vector<Rect> squares;
 
-    Figure(vector<FigureVariant> variants, Texture& texture);
-    int render(Context& context);
+    Figure(FigureVariant* variant);
+
+    int render(Renderer& renderer);
+    void move_figure(map<XY, bool>& grid, Direction direction);
+
+    static Figure random(const vector<FigureVariant>& figure_variants);
 };
 
 #endif /* FIG_HPP */

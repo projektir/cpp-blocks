@@ -1,40 +1,24 @@
-cmake_minimum_required(VERSION 3.9.3)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.9.3)
 
-set(ProjectName cpp-blocks)
+SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
-project(${ProjectName})
+SET(ProjectName cpp-blocks)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+PROJECT(${ProjectName})
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W4")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W3")
 
-set(VendorDir "C:/Projects/${ProjectName}/Vendor")
+SET(SourceFolder src)
 
-# SDL2
-set(SDL2Dir "${VendorDir}/SDL2")
-set(SDL2LibraryDirs "${SDL2Dir}/lib/x64")
-set(SDL2IncludeDirs "${SDL2Dir}/include")
-set(SDL2Libraries "${SDL2LibraryDirs}/SDL2.lib;${SDL2LibraryDirs}/SDL2main.lib")
+set(SDL2PP_WITH_IMAGE ON)
+ADD_SUBDIRECTORY(extlib/libSDL2pp)
 
-# SDL2_image
-set(SDL2ImageDir "${VendorDir}/SDL2_image")
-set(DSL2ImageLibraryDirs "${SDL2ImageDir}/lib/x64")
-set(SDL2ImageIncludeDirs "${SDL2ImageDir}/include")
-set(SDL2ImageLibraries "${DSL2ImageLibraryDirs}/SDL2_image.lib")
+INCLUDE_DIRECTORIES(${SDL2PP_INCLUDE_DIRS})
 
-include_directories(${ProjectName} ${SDL2IncludeDirs})
-include_directories(${ProjectName} ${SDL2ImageIncludeDirs})
-
-set(SourceFolder src)
-
-include_directories(${ProjectName} "C:/Projects/${ProjectName}")
-
-add_executable(${ProjectName} ${SourceFolder}/main.cpp
+ADD_EXECUTABLE(${ProjectName} ${SourceFolder}/main.cpp
     ${SourceFolder}/game.hpp ${SourceFolder}/game.cpp
     ${SourceFolder}/figure.hpp ${SourceFolder}/figure.cpp
-    ${SourceFolder}/context.hpp
-    ${SourceFolder}/texture.hpp ${SourceFolder}/texture.cpp
-    ${SourceFolder}/utils.hpp)
+    ${SourceFolder}/figure_variant.hpp ${SourceFolder}/figure_variant.cpp
+    ${SourceFolder}/utils.hpp ${SourceFolder}/utils.cpp)
 
-target_link_libraries(${ProjectName} ${SDL2Libraries})
-target_link_libraries(${ProjectName} ${SDL2ImageLibraries})
+TARGET_LINK_LIBRARIES(${ProjectName} ${SDL2PP_LIBRARIES})

@@ -1,49 +1,35 @@
 #include "game.hpp"
 
-Context init_context();
+using namespace SDL2pp;
 
-int cleanup(Context& context, vector<SDL_Texture*> textures);
+void process_key(Renderer& renderer, SDL_Keycode keycode, Figure& figure, map<XY, bool>& grid);
 
-bool process_event(Context& context, SDL_Event* event,
-    Figure& figure, map<XY, bool>& grid);
+int start() try {
+    SDL sdl(SDL_INIT_VIDEO);
+    Window window("cpp-blocks", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+        SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+    Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);    
 
-void process_key(Context& context, SDL_Keycode keycode,
-    Figure& figure, map<XY, bool>& grid);
+    vector<Texture*> textures;
+    Texture o_texture(renderer, "C:/Users/Nidhogg/Pictures/GreenSquare.png");
+    Texture i_texture(renderer, "C:/Users/Nidhogg/Pictures/RedSquare.png");
+    textures.push_back(&o_texture);
+    textures.push_back(&i_texture);
 
-int start() {
-    Context context = init_context();
+    Rect texture_rect(0, 0, SQUARE_SIZE, SQUARE_SIZE);
+
+    renderer.SetDrawColor(0, 0, 0, 255);
+
+    const vector<FigureVariant> figure_variants = create_variants(textures);
+    srand((unsigned int) time(0));
+
+    vector<Figure> figures;
     
-    // This vector is responsible for destroying the SDL_Textures
-    vector<SDL_Texture*> textures;
+    auto variant_index = rand() % figure_variants.size();
+    auto random_variant = figure_variants.at(variant_index);
+    figures.emplace_back(&random_variant);
 
-    // Encapsulate image loading and texture storage
-    SDL_Surface* surface = IMG_Load("C:/Projects/cpp-blocks/build/bin/Debug/green_square.png");
-    if (surface == NULL ) {
-        std::cout << "Unable to load image green_square.png! IMG_GetError Error: "
-        << IMG_GetError() << "\n";
-    }
-    textures.push_back(SDL_CreateTextureFromSurface(context.renderer, surface));
-    SDL_FreeSurface(surface);
-
-    surface = IMG_Load("C:/Projects/cpp-blocks/build/bin/Debug/red_square.png");
-    if (surface == NULL ) {
-        std::cout << "Unable to load image red_square.png! IMG_GetError Error: "
-        << IMG_GetError() << "\n";
-    }
-    textures.push_back(SDL_CreateTextureFromSurface(context.renderer, surface));
-    SDL_FreeSurface(surface);
-    // Encapsulate image loading and texture storage
-
-    // In the future, this should be stored somewhere else and a
-    // variant chosen at random for each new figure
-    const vector<FigureVariant> figures = create_figures();
-    
-    Texture texture2 = Texture(textures.at(0));
-    Figure figure = Figure(figures, texture2);
-    
-    // Store this somewhere else
     map<XY, bool> grid;
-
     int grid_width = SCREEN_WIDTH / SQUARE_SIZE;
     int grid_height = SCREEN_HEIGHT / SQUARE_SIZE;
     for (int x = 0; x < grid_width; x++) {
@@ -53,178 +39,60 @@ int start() {
         }
     }
 
-    figure.render(context);
+    figures.back().render(renderer);
 
-    bool quit = false;
     SDL_Event event;
 
-    while (!quit) {
+    while (1) {
+        renderer.Clear();
+
         while (SDL_PollEvent(&event)) {
-            if (process_event(context, &event, figure, grid)) {
-                quit = true;
+            switch (event.type) {
+                case SDL_KEYDOWN:
+                    process_key(renderer, event.key.keysym.sym, figures.back(), grid);                  
+
+                    break;
+                case SDL_USEREVENT:
+                    if (event.user.code == FIGURE_PLACEMENT_CODE) {
+                        //placed_figures.push_back(current_figure);
+                        //current_figure = generate_random_figure(figure_variants);
+                    }
+                    break;
+                case SDL_QUIT:
+                    return 0;
+                    break;
+                default:
+                    break;
             }
         }
     }
 
-    cleanup(context, textures);
-
     return 0;
+} catch (exception& e) {
+	cerr << e.what() << endl;
+	return 1;
 }
 
-Context init_context() {
-    Context context;
+void process_key(Renderer& renderer, SDL_Keycode keycode, Figure& figure, map<XY, bool>& grid) {
+    Direction direction;
 
-    SDL_Init(SDL_INIT_VIDEO);
-
-    context.window = SDL_CreateWindow("cpp-blocks",
-        SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-        SCREEN_WIDTH, SCREEN_HEIGHT,
-        0
-    );
-
-    context.renderer = SDL_CreateRenderer(context.window, -1, SDL_RENDERER_ACCELERATED);
-
-    SDL_SetRenderDrawColor(context.renderer, 0, 0, 0, 255);
-
-    return context;
-}
-
-int cleanup(Context& context, vector<SDL_Texture*> textures) {
-    for (vector<SDL_Texture*>::iterator iter = textures.begin(); iter != textures.end(); iter++) {
-        SDL_DestroyTexture(*iter);
-    }
-
-    SDL_DestroyRenderer(context.renderer);
-    SDL_DestroyWindow(context.window);
-
-    SDL_Quit();
-
-    return 0;
-}
-
-bool process_event(Context& context, SDL_Event* event,
-    Figure& figure, map<XY, bool>& grid) {
-
-    switch (event->type) {
-        case SDL_KEYDOWN:
-            process_key(context, event->key.keysym.sym, figure, grid);
-            break;
-        case SDL_USEREVENT:
-            if (event->user.code == FIGURE_PLACEMENT_CODE) {
-                // Place figures
-            }
-            break;
-        case SDL_QUIT:
-            return true;
-            break;
-        default:
-            break;
-    }
-
-    return false;
-}
-
-void process_key(Context& context, SDL_Keycode keycode,
-    Figure& figure, map<XY, bool>& grid) {
-    
     switch (keycode) {
         case SDLK_a:
-            move_figure(context, figure, grid, Direction::LEFT);
+            direction = Direction::LEFT;
             break;
         case SDLK_d:
-            move_figure(context, figure, grid, Direction::RIGHT);
+            direction = Direction::RIGHT;
             break;
         case SDLK_s:
-            move_figure(context, figure, grid, Direction::DOWN);
+            direction = Direction::DOWN;
             break;
         case SDLK_w:
-            move_figure(context, figure, grid, Direction::UP);
+            direction = Direction::UP;
             break;
         default:
             break;
     }
-}
 
-bool will_collide(Figure& figure, map<XY, bool>& grid, Direction direction) {
-    bool colliding = false;
-    
-    for (int i = 0; i < figure.squares.size(); i++) {
-        SDL_Rect& rect = figure.squares.at(i);
-
-        SDL_Rect test_rect;
-        test_rect.x = rect.x;
-        test_rect.y = rect.y;
-
-        switch (direction) {
-            case Direction::UP:
-                test_rect.y -= SQUARE_SIZE;
-                if (test_rect.y >= SCREEN_HEIGHT || test_rect.y < 0) {
-                    colliding = true;
-                }                
-                break;
-            case Direction::DOWN:
-                test_rect.y += SQUARE_SIZE;
-                if (test_rect.y >= SCREEN_HEIGHT || test_rect.y < 0) {
-                    colliding = true;
-
-                    SDL_Event figure_planted;                    
-                    figure_planted.type = SDL_USEREVENT;
-                    figure_planted.user.code = FIGURE_PLACEMENT_CODE;
-                    SDL_PushEvent(&figure_planted);
-                }
-                break;
-            case Direction::LEFT:
-                test_rect.x -= SQUARE_SIZE;
-                if (test_rect.x >= SCREEN_WIDTH || test_rect.x < 0) {
-                    colliding = true;
-                }
-                break;
-            case Direction::RIGHT:
-                test_rect.x += SQUARE_SIZE;
-                if (test_rect.x >= SCREEN_WIDTH || test_rect.x < 0) {
-                    colliding = true;
-                }
-                break;
-        }
-
-        if (!colliding) {
-            XY xy = {test_rect.x / SQUARE_SIZE, test_rect.y / SQUARE_SIZE};
-            if (grid[xy]) {
-                colliding = true;
-            }
-        }
-    }
-
-    return colliding;
-}
-
-int move_figure(Context& context, Figure& figure, map<XY, bool>& grid, Direction direction) {
-    SDL_RenderClear(context.renderer);
-
-    if (will_collide(figure, grid, direction)) {
-        return 0;
-    }
-
-    for (int i = 0; i < figure.squares.size(); i++) {
-        SDL_Rect& rect = figure.squares.at(i);
-
-        switch (direction) {
-            case Direction::UP:
-                rect.y -= SQUARE_SIZE;
-                break;
-            case Direction::DOWN:
-                rect.y += SQUARE_SIZE;
-                break;
-            case Direction::LEFT:
-                rect.x -= SQUARE_SIZE;
-                break;
-            case Direction::RIGHT:
-                rect.x += SQUARE_SIZE;
-                break;
-        }
-    }
-
-    figure.render(context);
-
-    return 0;
+    figure.move_figure(grid, direction);
+    figure.render(renderer);
 }

@@ -1,5 +1,9 @@
-#ifndef STF_HPP
-#define STF_HPP
+#ifndef UTIL_HPP
+#define UTIL_HPP
+
+#include <utility>
+
+using namespace std;
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 880;
@@ -16,4 +20,4 @@ struct XY {
 
 bool operator<(XY a, XY b);
 
-#endif /* STF_HPP */
+#endif /* UTIL_HPP */

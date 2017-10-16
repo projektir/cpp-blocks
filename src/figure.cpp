@@ -1,17 +1,15 @@
 #include "figure.hpp"
 
-Figure::Figure(const vector<FigureVariant> variants, Texture& texture) : texture(texture) {
-    auto variant_index = rand() % variants.size();
-    this->variant = variants.at(variant_index);
-
+Figure::Figure(FigureVariant* variant) {
+    this->variant = variant;
     this->rotation = 0;
 
-    auto rotations = this->variant.rotations[rotation];
+    auto rotations = this->variant->rotations[rotation];
 
     for (auto iter = rotations.begin(); iter != rotations.end(); iter++) {
         auto rotation_offsets = *iter;
 
-        SDL_Rect rect;
+        Rect rect;
         rect.x = (rotation_offsets.x * SQUARE_SIZE);
         rect.y = (rotation_offsets.y * SQUARE_SIZE);
         rect.w = SQUARE_SIZE;
@@ -21,55 +19,93 @@ Figure::Figure(const vector<FigureVariant> variants, Texture& texture) : texture
     }
 }
 
-int Figure::render(Context& context) {
+int Figure::render(Renderer& renderer)  try {
     for (auto iter = squares.begin(); iter != squares.end(); iter++) {
-        texture.render(context, *iter);
+        renderer.Copy(*(variant->texture), NullOpt, *iter);
     }
 
+    renderer.Present();
+
     return 0;
+} catch (exception& e) {
+	cerr << e.what() << endl;
+	return 1;
 }
 
-bool operator<(XY a, XY b) {
-    return make_pair(a.x, a.y) < make_pair(b.x, b.y);
+void Figure::move_figure(map<XY, bool>& grid, Direction direction) {
+    if (will_collide(grid, direction)) {
+        return;
+    }
+
+    for (auto iter = this->squares.begin(); iter != this->squares.end(); iter++) {
+        Rect& rect = *iter;
+
+        switch (direction) {
+            case Direction::UP:
+                rect.y -= SQUARE_SIZE;
+                break;
+            case Direction::DOWN:
+                rect.y += SQUARE_SIZE;
+                break;
+            case Direction::LEFT:
+                rect.x -= SQUARE_SIZE;
+                break;
+            case Direction::RIGHT:
+                rect.x += SQUARE_SIZE;
+                break;
+        }
+    }
 }
 
-vector<FigureVariant> create_figures() {
-    vector<FigureVariant> figures;
-
-    XY p00 = {0, 0};
-    XY p01 = {0, 1};
-    XY p10 = {1, 0};
-    XY p11 = {1, 1};
+bool Figure::will_collide(map<XY, bool>& grid, Direction direction) {
+    bool colliding = false;
     
-    XY p02 = {0, 2};
-    XY p03 = {0, 3};
+    for (auto iter = this->squares.begin(); iter != this->squares.end(); iter++) {
+        Rect& rect = *iter;
 
-    XY p20 = {2, 0};
-    XY p30 = {3, 0};
+        Rect test_rect;
+        test_rect.x = rect.x;
+        test_rect.y = rect.y;
 
-    // [][]
-    // [][]
-    FigureVariant o;
+        switch (direction) {
+            case Direction::UP:
+                test_rect.y -= SQUARE_SIZE;
+                if (test_rect.y >= SCREEN_HEIGHT || test_rect.y < 0) {
+                    colliding = true;
+                }                
+                break;
+            case Direction::DOWN:
+                test_rect.y += SQUARE_SIZE;
+                if (test_rect.y >= SCREEN_HEIGHT || test_rect.y < 0) {
+                    colliding = true;
 
-    vector<XY> o_rotation = {p00, p01, p10, p11};
+                    SDL_Event figure_placed;                    
+                    figure_placed.type = SDL_USEREVENT;
+                    figure_placed.user.code = FIGURE_PLACEMENT_CODE;
+                    SDL_PushEvent(&figure_placed);
+                }
+                break;
+            case Direction::LEFT:
+                test_rect.x -= SQUARE_SIZE;
+                if (test_rect.x >= SCREEN_WIDTH || test_rect.x < 0) {
+                    colliding = true;
+                }
+                break;
+            case Direction::RIGHT:
+                test_rect.x += SQUARE_SIZE;
+                if (test_rect.x >= SCREEN_WIDTH || test_rect.x < 0) {
+                    colliding = true;
+                }
+                break;
+        }
 
-    o.type = FigureType::O;   
-    o.rotations.push_back(o_rotation);
+        if (!colliding) {
+            XY xy = {test_rect.x / SQUARE_SIZE, test_rect.y / SQUARE_SIZE};
+            if (grid[xy]) {
+                colliding = true;
+            }
+        }
+    }
 
-    figures.push_back(o);
-
-    // []
-    // [] [][][][]
-    // []
-    // []
-    FigureVariant i;
-
-    vector<XY> i_rotation1 = {p00, p01, p02, p03};
-    vector<XY> i_rotation2 = {p00, p10, p20, p30};
-
-    o.type = FigureType::I;
-    o.rotations.push_back(i_rotation1);
-    o.rotations.push_back(i_rotation2);
-
-    return figures;
+    return colliding;
 }

@@ -3,11 +3,19 @@
 
 #include <iostream>
 #include <map>
+#include <ctime>
+#include <exception>
+
+#include <SDL.h>
+
+#include <SDL2pp/SDL2pp.hh>
+#include <SDL2pp/Texture.hh>
 
 #include "figure.hpp"
+#include "utils.hpp"
+
+using namespace std;
 
 int start();
-bool will_collide(Figure& figure, map<XY, bool>& grid, Direction direction);
-int move_figure(Context& context, Figure& figure, map<XY, bool>& grid, Direction direction);
 
 #endif /* GAME_HPP */
