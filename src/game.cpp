@@ -34,18 +34,12 @@ int start() {
     SDL_FreeSurface(surface);
     // Encapsulate image loading and texture storage
 
-    SDL_Rect source_rect;
-    source_rect.x = 0;
-    source_rect.y = 0;
-    source_rect.w = SQUARE_SIZE;
-    source_rect.h = SQUARE_SIZE;
-
     // In the future, this should be stored somewhere else and a
     // variant chosen at random for each new figure
-    vector<FigureVariant> figures = create_figures();
+    const vector<FigureVariant> figures = create_figures();
     
     Texture texture2 = Texture(textures.at(0));
-    Figure figure = Figure(figures[0], texture2);
+    Figure figure = Figure(figures, texture2);
     
     // Store this somewhere else
     map<XY, bool> grid;

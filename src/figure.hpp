@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "texture.hpp"
-#include "stuff.hpp"
+#include "utils.hpp"
 #include "context.hpp"
 
 using namespace std;
@@ -19,6 +19,8 @@ struct FigureVariant {
     vector<vector<XY>> rotations;
 };
 
+vector<FigureVariant> create_figures();
+
 class Figure {
 public:
     FigureVariant variant;
@@ -26,10 +28,8 @@ public:
     Texture& texture;
     vector<SDL_Rect> squares;
 
-    Figure(FigureVariant variant, Texture& texture);
+    Figure(vector<FigureVariant> variants, Texture& texture);
     int render(Context& context);
 };
-
-vector<FigureVariant> create_figures();
 
 #endif /* FIG_HPP */

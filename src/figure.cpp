@@ -1,7 +1,9 @@
 #include "figure.hpp"
 
-Figure::Figure(FigureVariant variant, Texture& texture) : texture(texture) {
-    this->variant = variant;
+Figure::Figure(const vector<FigureVariant> variants, Texture& texture) : texture(texture) {
+    auto variant_index = rand() % variants.size();
+    this->variant = variants.at(variant_index);
+
     this->rotation = 0;
 
     auto rotations = this->variant.rotations[rotation];

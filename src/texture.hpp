@@ -4,7 +4,7 @@
 #include "SDL.h"
 #include "SDL_image.h"
 
-#include "stuff.hpp"
+#include "utils.hpp"
 #include "context.hpp"
 
 class Texture {

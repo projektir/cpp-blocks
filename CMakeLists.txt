@@ -34,7 +34,7 @@ add_executable(${ProjectName} ${SourceFolder}/main.cpp
     ${SourceFolder}/figure.hpp ${SourceFolder}/figure.cpp
     ${SourceFolder}/context.hpp
     ${SourceFolder}/texture.hpp ${SourceFolder}/texture.cpp
-    ${SourceFolder}/stuff.hpp)
+    ${SourceFolder}/utils.hpp)
 
 target_link_libraries(${ProjectName} ${SDL2Libraries})
 target_link_libraries(${ProjectName} ${SDL2ImageLibraries})
