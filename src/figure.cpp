@@ -1,10 +1,13 @@
 #include "figure.hpp"
 
-void Figure::initialize() {
-    rotation = 0;
+Figure::Figure(FigureVariant variant, Texture& texture) : texture(texture) {
+    this->variant = variant;
+    this->rotation = 0;
 
-    for (int i = 0; i < variant.rotations[rotation].size(); i++) {
-        auto rotation_offsets = variant.rotations[rotation][i];
+    auto rotations = this->variant.rotations[rotation];
+
+    for (auto iter = rotations.begin(); iter != rotations.end(); iter++) {
+        auto rotation_offsets = *iter;
 
         SDL_Rect rect;
         rect.x = (rotation_offsets.x * SQUARE_SIZE);
@@ -12,8 +15,16 @@ void Figure::initialize() {
         rect.w = SQUARE_SIZE;
         rect.h = SQUARE_SIZE;
 
-        squares.push_back(rect);
+        this->squares.push_back(rect);
     }
+}
+
+int Figure::render(Context& context) {
+    for (auto iter = squares.begin(); iter != squares.end(); iter++) {
+        texture.render(context, *iter);
+    }
+
+    return 0;
 }
 
 bool operator<(XY a, XY b) {

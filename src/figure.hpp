@@ -6,24 +6,11 @@
 #include <utility>
 #include <vector>
 
+#include "texture.hpp"
+#include "stuff.hpp"
+#include "context.hpp"
+
 using namespace std;
-
-/* These shouldn't be here, move somewhere else */
-
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 880;
-const int SQUARE_SIZE = 40;
-
-enum Direction {UP, DOWN, LEFT, RIGHT};
-
-struct XY {
-    int x = 0;
-    int y = 0;
-};
-
-bool operator<(XY a, XY b);
-
-/* These shouldn't be here, move somewhere else */
 
 enum FigureType {O, I, T, S, L, J};
 
@@ -36,9 +23,11 @@ class Figure {
 public:
     FigureVariant variant;
     char rotation;
+    Texture& texture;
     vector<SDL_Rect> squares;
 
-    void initialize();
+    Figure(FigureVariant variant, Texture& texture);
+    int render(Context& context);
 };
 
 vector<FigureVariant> create_figures();
