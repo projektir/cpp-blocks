@@ -1,10 +1,13 @@
 #include "figure.hpp"
 
-Figure::Figure(FigureVariant* variant) {
-    this->variant = variant;
+Figure::Figure(const vector<FigureVariant>& figure_variants) {
+    auto variant_index = rand() % figure_variants.size();
+    auto random_variant = figure_variants.at(variant_index);
+
+    this->variant = random_variant;
     this->rotation = 0;
 
-    auto rotations = this->variant->rotations[rotation];
+    auto rotations = this->variant.rotations[rotation];
 
     for (auto iter = rotations.begin(); iter != rotations.end(); iter++) {
         auto rotation_offsets = *iter;
@@ -21,7 +24,7 @@ Figure::Figure(FigureVariant* variant) {
 
 int Figure::render(Renderer& renderer)  try {
     for (auto iter = squares.begin(); iter != squares.end(); iter++) {
-        renderer.Copy(*(variant->texture), NullOpt, *iter);
+        renderer.Copy(*(variant.texture), NullOpt, *iter);
     }
 
     renderer.Present();

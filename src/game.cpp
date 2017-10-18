@@ -3,6 +3,7 @@
 using namespace SDL2pp;
 
 void process_key(Renderer& renderer, SDL_Keycode keycode, Figure& figure, map<XY, bool>& grid);
+void generate_figure(const vector<FigureVariant>& figure_variants, vector<Figure>& figures);
 
 int start() try {
     SDL sdl(SDL_INIT_VIDEO);
@@ -24,10 +25,7 @@ int start() try {
     srand((unsigned int) time(0));
 
     vector<Figure> figures;
-    
-    auto variant_index = rand() % figure_variants.size();
-    auto random_variant = figure_variants.at(variant_index);
-    figures.emplace_back(&random_variant);
+    figures.emplace_back(figure_variants);
 
     map<XY, bool> grid;
     int grid_width = SCREEN_WIDTH / SQUARE_SIZE;
@@ -38,8 +36,6 @@ int start() try {
             grid[xy] = false;
         }
     }
-
-    figures.back().render(renderer);
 
     SDL_Event event;
 
@@ -54,8 +50,7 @@ int start() try {
                     break;
                 case SDL_USEREVENT:
                     if (event.user.code == FIGURE_PLACEMENT_CODE) {
-                        //placed_figures.push_back(current_figure);
-                        //current_figure = generate_random_figure(figure_variants);
+                        figures.emplace_back(figure_variants);
                     }
                     break;
                 case SDL_QUIT:
@@ -64,6 +59,10 @@ int start() try {
                 default:
                     break;
             }
+        }
+
+        for (auto iter = figures.begin(); iter != figures.end(); iter++) {
+            (*iter).render(renderer);
         }
     }
 
