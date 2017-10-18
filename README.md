@@ -1,5 +1,7 @@
 # cpp-blocks
 
+![blocks](cpp-blocks.png)
+
 To build via VC++:
 
 clone the `libSDL2pp` repo: https://github.com/libSDL2pp
