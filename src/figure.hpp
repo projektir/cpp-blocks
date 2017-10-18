@@ -15,16 +15,18 @@
 using namespace std;
 
 class Figure {
-    bool will_collide(map<XY, bool>& grid, Direction direction);
+    bool will_collide(const map<XY, bool>& grid, Direction direction);
+    void set_squares(const map<XY, bool>& grid);
 public:
     FigureVariant variant;
     char rotation;
     vector<Rect> squares;
 
-    Figure(const vector<FigureVariant>& figure_variants);
+    Figure(const vector<FigureVariant>& figure_variants, const map<XY, bool>& grid);
 
     int render(Renderer& renderer);
-    void move_figure(map<XY, bool>& grid, Direction direction);
+    void move(const map<XY, bool>& grid, Direction direction);
+    void rotate(const map<XY, bool>& grid);
 };
 
 #endif /* FIG_HPP */

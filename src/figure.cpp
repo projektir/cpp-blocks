@@ -1,14 +1,20 @@
 #include "figure.hpp"
 
-Figure::Figure(const vector<FigureVariant>& figure_variants) {
+Figure::Figure(const vector<FigureVariant>& figure_variants, const map<XY, bool>& grid) {
     auto variant_index = rand() % figure_variants.size();
     auto random_variant = figure_variants.at(variant_index);
 
     this->variant = random_variant;
     this->rotation = 0;
 
-    auto rotations = this->variant.rotations[rotation];
+    set_squares(grid);
+}
 
+void Figure::set_squares(const map<XY, bool>& grid) {
+    this->squares.clear();
+
+    auto rotations = this->variant.rotations[this->rotation];
+    
     for (auto iter = rotations.begin(); iter != rotations.end(); iter++) {
         auto rotation_offsets = *iter;
 
@@ -33,7 +39,7 @@ int Figure::render(Renderer& renderer)  try {
 	return 1;
 }
 
-void Figure::move_figure(map<XY, bool>& grid, Direction direction) {
+void Figure::move(const map<XY, bool>& grid, Direction direction) {
     if (will_collide(grid, direction)) {
         return;
     }
@@ -58,7 +64,7 @@ void Figure::move_figure(map<XY, bool>& grid, Direction direction) {
     }
 }
 
-bool Figure::will_collide(map<XY, bool>& grid, Direction direction) {
+bool Figure::will_collide(const map<XY, bool>& grid, Direction direction) {
     bool colliding = false;
     
     for (auto iter = this->squares.begin(); iter != this->squares.end(); iter++) {
@@ -100,13 +106,27 @@ bool Figure::will_collide(map<XY, bool>& grid, Direction direction) {
                 break;
         }
 
+        
+
         if (!colliding) {
             XY xy = {test_rect.x / SQUARE_SIZE, test_rect.y / SQUARE_SIZE};
-            if (grid[xy]) {
+            if (grid.at(xy)) {
                 colliding = true;
             }
         }
     }
 
     return colliding;
+}
+
+void Figure::rotate(const map<XY, bool>& grid) {
+    auto rotations = this->variant.rotations;
+
+    if (this->rotation < rotations.size() - 1) {
+        this->rotation++;
+    } else {
+        this->rotation = 0;
+    }
+
+    set_squares(grid);
 }

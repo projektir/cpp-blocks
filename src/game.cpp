@@ -21,12 +21,6 @@ int start() try {
 
     renderer.SetDrawColor(0, 0, 0, 255);
 
-    const vector<FigureVariant> figure_variants = create_variants(textures);
-    srand((unsigned int) time(0));
-
-    vector<Figure> figures;
-    figures.emplace_back(figure_variants);
-
     map<XY, bool> grid;
     int grid_width = SCREEN_WIDTH / SQUARE_SIZE;
     int grid_height = SCREEN_HEIGHT / SQUARE_SIZE;
@@ -37,6 +31,12 @@ int start() try {
         }
     }
 
+    const vector<FigureVariant> figure_variants = create_variants(textures);
+    srand((unsigned int) time(0));
+
+    vector<Figure> figures;
+    figures.emplace_back(figure_variants, grid);
+
     SDL_Event event;
 
     while (1) {
@@ -46,7 +46,7 @@ int start() try {
             switch (event.type) {
                 case SDL_USEREVENT:
                     if (event.user.code == FIGURE_PLACEMENT_CODE) {
-                        figures.emplace_back(figure_variants);
+                        figures.emplace_back(figure_variants, grid);
                     }
                     break;
                 case SDL_KEYDOWN:
@@ -90,10 +90,13 @@ void process_key(Renderer& renderer, SDL_Keycode keycode, Figure& figure, map<XY
         case SDLK_w:
             direction = Direction::UP;
             break;
+        case SDLK_r:
+            figure.rotate(grid);
+            return;
         default:
             break;
     }
 
-    figure.move_figure(grid, direction);
+    figure.move(grid, direction);
     figure.render(renderer);
 }
