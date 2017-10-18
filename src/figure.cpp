@@ -27,8 +27,6 @@ int Figure::render(Renderer& renderer)  try {
         renderer.Copy(*(variant.texture), NullOpt, *iter);
     }
 
-    renderer.Present();
-
     return 0;
 } catch (exception& e) {
 	cerr << e.what() << endl;

@@ -44,14 +44,14 @@ int start() try {
 
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
-                case SDL_KEYDOWN:
-                    process_key(renderer, event.key.keysym.sym, figures.back(), grid);                  
-
-                    break;
                 case SDL_USEREVENT:
                     if (event.user.code == FIGURE_PLACEMENT_CODE) {
                         figures.emplace_back(figure_variants);
                     }
+                    break;
+                case SDL_KEYDOWN:
+                    process_key(renderer, event.key.keysym.sym, figures.back(), grid);                  
+
                     break;
                 case SDL_QUIT:
                     return 0;
@@ -64,6 +64,8 @@ int start() try {
         for (auto iter = figures.begin(); iter != figures.end(); iter++) {
             (*iter).render(renderer);
         }
+
+        renderer.Present();
     }
 
     return 0;
