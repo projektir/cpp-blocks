@@ -28,7 +28,7 @@ void Figure::set_squares(const map<XY, bool>& grid) {
     }
 }
 
-int Figure::render(Renderer& renderer)  try {
+int Figure::render(Renderer& renderer) try {
     for (auto iter = squares.begin(); iter != squares.end(); iter++) {
         renderer.Copy(*(variant.texture), NullOpt, *iter);
     }
@@ -77,46 +77,65 @@ bool Figure::will_collide(const map<XY, bool>& grid, Direction direction) {
         switch (direction) {
             case Direction::UP:
                 test_rect.y -= SQUARE_SIZE;
-                if (test_rect.y >= SCREEN_HEIGHT || test_rect.y < 0) {
+
+                if (collides_with_grid(grid, test_rect) ||
+                    test_rect.y >= SCREEN_HEIGHT || test_rect.y < 0) {
+
                     colliding = true;
-                }                
+                }
+
                 break;
             case Direction::DOWN:
                 test_rect.y += SQUARE_SIZE;
-                if (test_rect.y >= SCREEN_HEIGHT || test_rect.y < 0) {
-                    colliding = true;
 
-                    SDL_Event figure_placed;                    
-                    figure_placed.type = SDL_USEREVENT;
-                    figure_placed.user.code = FIGURE_PLACEMENT_CODE;
-                    SDL_PushEvent(&figure_placed);
+                if (collides_with_grid(grid, test_rect) ||
+                    test_rect.y >= SCREEN_HEIGHT || test_rect.y < 0) {
+
+                    SDL_Event figure_placed;
+                    
+                    if (SDL_PeepEvents(&figure_placed, 1, SDL_PEEKEVENT, SDL_USEREVENT, SDL_USEREVENT) == 0) {
+                        figure_placed.type = SDL_USEREVENT;
+                        figure_placed.user.code = FIGURE_PLACEMENT_CODE;
+                        SDL_PushEvent(&figure_placed);
+                    }
+                    
+                    colliding = true;
                 }
+
                 break;
             case Direction::LEFT:
                 test_rect.x -= SQUARE_SIZE;
-                if (test_rect.x >= SCREEN_WIDTH || test_rect.x < 0) {
+
+                if (collides_with_grid(grid, test_rect) ||
+                    test_rect.x >= SCREEN_WIDTH || test_rect.x < 0) {
+                    
                     colliding = true;
                 }
+
                 break;
             case Direction::RIGHT:
                 test_rect.x += SQUARE_SIZE;
-                if (test_rect.x >= SCREEN_WIDTH || test_rect.x < 0) {
-                    colliding = true;
+
+                if (collides_with_grid(grid, test_rect) ||
+                    test_rect.x >= SCREEN_WIDTH || test_rect.x < 0) {
+                    
+                        colliding = true;
                 }
+
                 break;
-        }
-
-        
-
-        if (!colliding) {
-            XY xy = {test_rect.x / SQUARE_SIZE, test_rect.y / SQUARE_SIZE};
-            if (grid.at(xy)) {
-                colliding = true;
-            }
         }
     }
 
     return colliding;
+}
+
+bool Figure::collides_with_grid(const map<XY, bool>& grid, const Rect test_rect) {
+    XY xy = {test_rect.x / SQUARE_SIZE, test_rect.y / SQUARE_SIZE};
+    if (grid.at(xy)) {
+        return true;
+    }
+
+    return false;
 }
 
 void Figure::rotate(const map<XY, bool>& grid) {

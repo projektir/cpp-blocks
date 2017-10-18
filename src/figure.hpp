@@ -17,6 +17,8 @@ using namespace std;
 class Figure {
     bool will_collide(const map<XY, bool>& grid, Direction direction);
     void set_squares(const map<XY, bool>& grid);
+
+    static bool collides_with_grid(const map<XY, bool>& grid, const Rect test_rect);
 public:
     FigureVariant variant;
     char rotation;
