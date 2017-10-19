@@ -11,6 +11,11 @@ Figure::Figure(const vector<FigureVariant>& figure_variants, const map<XY, bool>
 }
 
 void Figure::set_squares(const map<XY, bool>& grid) {
+    Rect old_rect;
+    if (this->squares.size() > 0) {
+        old_rect = this->squares.front();
+    }
+
     this->squares.clear();
 
     auto rotations = this->variant.rotations[this->rotation];
@@ -19,8 +24,8 @@ void Figure::set_squares(const map<XY, bool>& grid) {
         auto rotation_offsets = *iter;
 
         Rect rect;
-        rect.x = (rotation_offsets.x * SQUARE_SIZE);
-        rect.y = (rotation_offsets.y * SQUARE_SIZE);
+        rect.x = (rotation_offsets.x * SQUARE_SIZE) + old_rect.x;
+        rect.y = (rotation_offsets.y * SQUARE_SIZE) + old_rect.y;
         rect.w = SQUARE_SIZE;
         rect.h = SQUARE_SIZE;
 
