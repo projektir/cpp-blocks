@@ -4,7 +4,7 @@ using namespace SDL2pp;
 
 void process_key(Renderer& renderer, SDL_Keycode keycode, Figure& figure, map<XY, Texture*>& grid);
 
-// Temporary, grid saving will need to be reworked
+void render_grid(Renderer& render, map<XY, Texture*>& grid);
 void add_figure_to_grid(const Figure& figure, map<XY, Texture*>& grid);
 
 int start() try {
@@ -32,8 +32,8 @@ int start() try {
     renderer.SetDrawColor(0, 0, 0, 255);
 
     map<XY, Texture*> grid;
-    int grid_width = SCREEN_WIDTH / SQUARE_SIZE + 1;
-    int grid_height = SCREEN_HEIGHT / SQUARE_SIZE + 1;
+    int grid_width = SCREEN_WIDTH / SQUARE_SIZE + 2;
+    int grid_height = SCREEN_HEIGHT / SQUARE_SIZE + 2;
     for (int x = -1; x < grid_width; x++) {
         for (int y = -1; y < grid_height; y++) {
             XY xy = {x, y};
@@ -72,9 +72,8 @@ int start() try {
             }
         }
 
-        for (auto iter = figures.begin(); iter != figures.end(); iter++) {
-            (*iter).render(renderer);
-        }
+        figures.back().render(renderer);
+        render_grid(renderer, grid);
 
         renderer.Present();
     }
@@ -112,7 +111,16 @@ void process_key(Renderer& renderer, SDL_Keycode keycode, Figure& figure, map<XY
     figure.render(renderer);
 }
 
-// Temporary, grid saving will need to be reworked
+void render_grid(Renderer& render, map<XY, Texture*>& grid) {
+    for (const auto &pair : grid) {
+        if (pair.second != nullptr) {
+            auto loc = pair.first;
+            render.Copy(*(pair.second), NullOpt,
+                Rect(loc.x * SQUARE_SIZE, loc.y * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE));
+        }
+    }
+}
+
 void add_figure_to_grid(const Figure& figure, map<XY, Texture*>& grid) {
     for (auto iter = figure.squares.begin(); iter != figure.squares.end(); iter++) {
         auto square = *iter;
