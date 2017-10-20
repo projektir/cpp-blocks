@@ -1,8 +1,8 @@
 #include "figure_variant.hpp"
 
 vector<FigureVariant> create_variants(vector<Texture*> textures) {
-    if (textures.size() < 3) {
-        throw exception("At least three textures must be loaded");
+    if (textures.size() < 6) {
+        throw exception("At least six textures must be loaded");
     }
 
     vector<FigureVariant> figures;
@@ -72,6 +72,65 @@ vector<FigureVariant> create_variants(vector<Texture*> textures) {
         t.rotations.push_back(t_rotation4);
 
         figures.push_back(t);
+    }
+
+    {
+        //    [][] []
+        //  [][]   [][]
+        //           []
+        FigureVariant s;
+        s.type = FigureType::S;
+        s.texture = textures.at(3);
+
+        vector<XY> s_rotation1 = {p01, p10, p11, p20};
+        vector<XY> s_rotation2 = {p00, p01, p11, p12};
+
+        s.rotations.push_back(s_rotation1);
+        s.rotations.push_back(s_rotation2);
+
+        figures.push_back(s);
+    }
+
+    {
+        // []   [][][] [][]     
+        // []   []       []     []
+        // [][]          [] [][][] 
+        FigureVariant l;
+        l.type = FigureType::L;
+        l.texture = textures.at(4);
+
+        vector<XY> l_rotation1 = {p00, p01, p02, p12};
+        vector<XY> l_rotation2 = {p00, p01, p10, p20};
+        vector<XY> l_rotation3 = {p00, p10, p11, p12};
+        vector<XY> l_rotation4 = {p01, p11, p20, p21};
+
+        l.rotations.push_back(l_rotation1);
+        l.rotations.push_back(l_rotation2);
+        l.rotations.push_back(l_rotation3);
+        l.rotations.push_back(l_rotation4);
+
+        figures.push_back(l);
+    }
+
+    {
+        //   [] []     [][] 
+        //   [] [][][] []   [][][]
+        // [][]        []       []
+        FigureVariant j;
+        j.type = FigureType::J;
+        j.texture = textures.at(5);
+
+        vector<XY> j_rotation1 = {p02, p10, p11, p12};
+        vector<XY> j_rotation2 = {p00, p01, p11, p21};
+        vector<XY> j_rotation3 = {p00, p10, p01, p02};
+        vector<XY> j_rotation4 = {p00, p10, p20, p21};
+
+        j.rotations.push_back(j_rotation1);
+        j.rotations.push_back(j_rotation2);
+        j.rotations.push_back(j_rotation3);
+        j.rotations.push_back(j_rotation4);
+
+        figures.push_back(j);
     }
 
     return figures;

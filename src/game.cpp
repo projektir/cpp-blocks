@@ -17,9 +17,15 @@ int start() try {
     Texture o_texture(renderer, "C:/Projects/cpp-blocks/build/Debug/GreenSquare.png");
     Texture i_texture(renderer, "C:/Projects/cpp-blocks/build/Debug/RedSquare.png");
     Texture t_texture(renderer, "C:/Projects/cpp-blocks/build/Debug/BlueSquare.png");
+    Texture s_texture(renderer, "C:/Projects/cpp-blocks/build/Debug/PurpleSquare.png");
+    Texture l_texture(renderer, "C:/Projects/cpp-blocks/build/Debug/YellowSquare.png");
+    Texture j_texture(renderer, "C:/Projects/cpp-blocks/build/Debug/OrangeSquare.png");
     textures.push_back(&o_texture);
     textures.push_back(&i_texture);
     textures.push_back(&t_texture);
+    textures.push_back(&s_texture);
+    textures.push_back(&l_texture);
+    textures.push_back(&j_texture);
 
     Rect texture_rect(0, 0, SQUARE_SIZE, SQUARE_SIZE);
 
