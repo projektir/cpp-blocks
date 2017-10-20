@@ -15,20 +15,20 @@
 using namespace std;
 
 class Figure {
-    bool will_collide(const map<XY, bool>& grid, Direction direction);
-    void set_squares(const map<XY, bool>& grid);
+    bool will_collide(const map<XY, Texture*>& grid, Direction direction);
+    void set_squares(const map<XY, Texture*>& grid);
 
-    static bool collides_with_grid(const map<XY, bool>& grid, const Rect test_rect);
+    static bool collides_with_grid(const map<XY, Texture*>& grid, const Rect test_rect);
 public:
     FigureVariant variant;
     char rotation;
     vector<Rect> squares;
 
-    Figure(const vector<FigureVariant>& figure_variants, const map<XY, bool>& grid);
+    Figure(const vector<FigureVariant>& figure_variants, const map<XY, Texture*>& grid);
 
     int render(Renderer& renderer);
-    void move(const map<XY, bool>& grid, Direction direction);
-    void rotate(const map<XY, bool>& grid);
+    void move(const map<XY, Texture*>& grid, Direction direction);
+    void rotate(const map<XY, Texture*>& grid);
 };
 
 #endif /* FIG_HPP */

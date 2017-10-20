@@ -1,6 +1,6 @@
 #include "figure.hpp"
 
-Figure::Figure(const vector<FigureVariant>& figure_variants, const map<XY, bool>& grid) {
+Figure::Figure(const vector<FigureVariant>& figure_variants, const map<XY, Texture*>& grid) {
     auto variant_index = rand() % figure_variants.size();
     auto random_variant = figure_variants.at(variant_index);
 
@@ -10,7 +10,7 @@ Figure::Figure(const vector<FigureVariant>& figure_variants, const map<XY, bool>
     set_squares(grid);
 }
 
-void Figure::set_squares(const map<XY, bool>& grid) {
+void Figure::set_squares(const map<XY, Texture*>& grid) {
     Rect old_rect;
     if (this->squares.size() > 0) {
         old_rect = this->squares.front();
@@ -44,7 +44,7 @@ int Figure::render(Renderer& renderer) try {
 	return 1;
 }
 
-void Figure::move(const map<XY, bool>& grid, Direction direction) {
+void Figure::move(const map<XY, Texture*>& grid, Direction direction) {
     if (will_collide(grid, direction)) {
         return;
     }
@@ -69,7 +69,7 @@ void Figure::move(const map<XY, bool>& grid, Direction direction) {
     }
 }
 
-bool Figure::will_collide(const map<XY, bool>& grid, Direction direction) {
+bool Figure::will_collide(const map<XY, Texture*>& grid, Direction direction) {
     bool colliding = false;
     
     for (auto iter = this->squares.begin(); iter != this->squares.end(); iter++) {
@@ -134,16 +134,16 @@ bool Figure::will_collide(const map<XY, bool>& grid, Direction direction) {
     return colliding;
 }
 
-bool Figure::collides_with_grid(const map<XY, bool>& grid, const Rect test_rect) {
+bool Figure::collides_with_grid(const map<XY, Texture*>& grid, const Rect test_rect) {
     XY xy = {test_rect.x / SQUARE_SIZE, test_rect.y / SQUARE_SIZE};
-    if (grid.at(xy)) {
+    if (grid.at(xy) != nullptr) {
         return true;
     }
 
     return false;
 }
 
-void Figure::rotate(const map<XY, bool>& grid) {
+void Figure::rotate(const map<XY, Texture*>& grid) {
     auto rotations = this->variant.rotations;
 
     if (this->rotation < rotations.size() - 1) {

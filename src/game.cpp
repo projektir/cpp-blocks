@@ -2,10 +2,10 @@
 
 using namespace SDL2pp;
 
-void process_key(Renderer& renderer, SDL_Keycode keycode, Figure& figure, map<XY, bool>& grid);
+void process_key(Renderer& renderer, SDL_Keycode keycode, Figure& figure, map<XY, Texture*>& grid);
 
 // Temporary, grid saving will need to be reworked
-void add_figure_to_grid(const Figure& figure, map<XY, bool>& grid);
+void add_figure_to_grid(const Figure& figure, map<XY, Texture*>& grid);
 
 int start() try {
     SDL sdl(SDL_INIT_VIDEO);
@@ -31,13 +31,13 @@ int start() try {
 
     renderer.SetDrawColor(0, 0, 0, 255);
 
-    map<XY, bool> grid;
+    map<XY, Texture*> grid;
     int grid_width = SCREEN_WIDTH / SQUARE_SIZE + 1;
     int grid_height = SCREEN_HEIGHT / SQUARE_SIZE + 1;
     for (int x = -1; x < grid_width; x++) {
         for (int y = -1; y < grid_height; y++) {
             XY xy = {x, y};
-            grid[xy] = false;
+            grid[xy] = nullptr;
         }
     }
 
@@ -85,7 +85,7 @@ int start() try {
 	return 1;
 }
 
-void process_key(Renderer& renderer, SDL_Keycode keycode, Figure& figure, map<XY, bool>& grid) {
+void process_key(Renderer& renderer, SDL_Keycode keycode, Figure& figure, map<XY, Texture*>& grid) {
     Direction direction;
 
     switch (keycode) {
@@ -113,10 +113,10 @@ void process_key(Renderer& renderer, SDL_Keycode keycode, Figure& figure, map<XY
 }
 
 // Temporary, grid saving will need to be reworked
-void add_figure_to_grid(const Figure& figure, map<XY, bool>& grid) {
+void add_figure_to_grid(const Figure& figure, map<XY, Texture*>& grid) {
     for (auto iter = figure.squares.begin(); iter != figure.squares.end(); iter++) {
         auto square = *iter;
         XY xy = {square.x / SQUARE_SIZE, square.y / SQUARE_SIZE};
-        grid.at(xy) = true;
+        grid.at(xy) = figure.variant.texture;
     }
 }
