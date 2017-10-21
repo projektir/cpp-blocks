@@ -1,16 +1,16 @@
 #include "figure.hpp"
 
-Figure::Figure(const vector<FigureVariant>& figure_variants, const map<XY, Texture*>& grid) {
+Figure::Figure(const vector<FigureVariant>& figure_variants) {
     auto variant_index = rand() % figure_variants.size();
     auto random_variant = figure_variants.at(variant_index);
 
     this->variant = random_variant;
     this->rotation = 0;
 
-    set_squares(grid);
+    set_squares();
 }
 
-void Figure::set_squares(const map<XY, Texture*>& grid) {
+void Figure::set_squares() {
     Rect old_rect;
     if (this->squares.size() > 0) {
         old_rect = this->squares.front();
@@ -152,5 +152,5 @@ void Figure::rotate(const map<XY, Texture*>& grid) {
         this->rotation = 0;
     }
 
-    set_squares(grid);
+    set_squares();
 }

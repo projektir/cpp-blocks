@@ -44,8 +44,7 @@ int start() try {
     const vector<FigureVariant> figure_variants = create_variants(textures);
     srand((unsigned int) time(0));
 
-    vector<Figure> figures;
-    figures.emplace_back(figure_variants, grid);
+    Figure figure(figure_variants);
 
     SDL_Event event;
 
@@ -56,12 +55,12 @@ int start() try {
             switch (event.type) {
                 case SDL_USEREVENT:
                     if (event.user.code == FIGURE_PLACEMENT_CODE) {
-                        add_figure_to_grid(figures.back(), grid);
-                        figures.emplace_back(figure_variants, grid);
+                        add_figure_to_grid(figure, grid);
+                        figure = Figure(figure_variants);
                     }
                     break;
                 case SDL_KEYDOWN:
-                    process_key(renderer, event.key.keysym.sym, figures.back(), grid);                  
+                    process_key(renderer, event.key.keysym.sym, figure, grid);                  
 
                     break;
                 case SDL_QUIT:
@@ -72,7 +71,7 @@ int start() try {
             }
         }
 
-        figures.back().render(renderer);
+        figure.render(renderer);
         render_grid(renderer, grid);
 
         renderer.Present();
