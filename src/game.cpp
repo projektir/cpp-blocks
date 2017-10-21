@@ -14,12 +14,12 @@ int start() try {
     Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);    
 
     vector<Texture*> textures;
-    Texture o_texture(renderer, "C:/Projects/cpp-blocks/build/Debug/GreenSquare.png");
-    Texture i_texture(renderer, "C:/Projects/cpp-blocks/build/Debug/RedSquare.png");
-    Texture t_texture(renderer, "C:/Projects/cpp-blocks/build/Debug/BlueSquare.png");
-    Texture s_texture(renderer, "C:/Projects/cpp-blocks/build/Debug/PurpleSquare.png");
-    Texture l_texture(renderer, "C:/Projects/cpp-blocks/build/Debug/YellowSquare.png");
-    Texture j_texture(renderer, "C:/Projects/cpp-blocks/build/Debug/OrangeSquare.png");
+    Texture o_texture(renderer, "images/GreenSquare.png");
+    Texture i_texture(renderer, "images/RedSquare.png");
+    Texture t_texture(renderer, "images/BlueSquare.png");
+    Texture s_texture(renderer, "images/PurpleSquare.png");
+    Texture l_texture(renderer, "images/YellowSquare.png");
+    Texture j_texture(renderer, "images/OrangeSquare.png");
     textures.push_back(&o_texture);
     textures.push_back(&i_texture);
     textures.push_back(&t_texture);
