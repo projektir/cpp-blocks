@@ -75,6 +75,8 @@ int start() try {
         render_grid(renderer, grid);
 
         renderer.Present();
+        
+        SDL_Delay(10);
     }
 
     return 0;
