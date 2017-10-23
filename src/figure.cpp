@@ -7,25 +7,14 @@ Figure::Figure(const vector<FigureVariant>& figure_variants) {
     this->variant = random_variant;
     this->rotation = 0;
 
-    set_squares();
-}
-
-void Figure::set_squares() {
-    Rect old_rect;
-    if (this->squares.size() > 0) {
-        old_rect = this->squares.front();
-    }
-
-    this->squares.clear();
-
     auto rotations = this->variant.rotations[this->rotation];
     
     for (auto iter = rotations.begin(); iter != rotations.end(); iter++) {
         auto rotation_offsets = *iter;
 
         Rect rect;
-        rect.x = (rotation_offsets.x * SQUARE_SIZE) + old_rect.x;
-        rect.y = (rotation_offsets.y * SQUARE_SIZE) + old_rect.y;
+        rect.x = (rotation_offsets.x * SQUARE_SIZE);
+        rect.y = (rotation_offsets.y * SQUARE_SIZE);
         rect.w = SQUARE_SIZE;
         rect.h = SQUARE_SIZE;
 
@@ -144,13 +133,47 @@ bool Figure::collides_with_grid(const map<XY, Texture*>& grid, const Rect test_r
 }
 
 void Figure::rotate(const map<XY, Texture*>& grid) {
-    auto rotations = this->variant.rotations;
+    auto new_rotation = this->rotation;
+    
+    {
+        auto rotations = this->variant.rotations;
 
-    if (this->rotation < rotations.size() - 1) {
-        this->rotation++;
-    } else {
-        this->rotation = 0;
+        if (new_rotation < rotations.size() - 1) {
+            new_rotation++;
+        } else {
+            new_rotation = 0;
+        }
     }
 
-    set_squares();
+    auto rotations = this->variant.rotations[new_rotation];
+    
+    Rect old_rect;
+    if (this->squares.size() > 0) {
+        old_rect = this->squares.front();
+    }
+
+    vector<Rect> new_squares;
+
+    for (auto iter = rotations.begin(); iter != rotations.end(); iter++) {
+        auto rotation_offsets = *iter;
+
+        Rect rect;
+        rect.x = (rotation_offsets.x * SQUARE_SIZE) + old_rect.x;
+        rect.y = (rotation_offsets.y * SQUARE_SIZE) + old_rect.y;
+        rect.w = SQUARE_SIZE;
+        rect.h = SQUARE_SIZE;
+
+        if (collides_with_grid(grid, rect) ||
+            (rect.y >= SCREEN_HEIGHT || rect.y < 0) ||
+            (rect.y >= SCREEN_HEIGHT || rect.y < 0) ||
+            (rect.x >= SCREEN_WIDTH  || rect.x < 0) ||
+            (rect.x >= SCREEN_WIDTH  || rect.x < 0)) {
+            return;
+        }
+
+        new_squares.push_back(rect);
+    }
+
+    this->rotation = new_rotation;
+    this->squares = new_squares;
 }

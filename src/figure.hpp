@@ -16,8 +16,6 @@ using namespace std;
 
 class Figure {
     bool will_collide(const map<XY, Texture*>& grid, Direction direction);
-    void set_squares();
-
     static bool collides_with_grid(const map<XY, Texture*>& grid, const Rect test_rect);
 public:
     FigureVariant variant;
