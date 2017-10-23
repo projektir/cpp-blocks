@@ -1,8 +1,12 @@
 #include "figure_variant.hpp"
 
-vector<FigureVariant> create_variants(vector<Texture*> textures) {
+using std::vector;
+
+using SDL2pp::Texture;
+
+std::vector<FigureVariant> create_variants(std::vector<SDL2pp::Texture*> textures) {
     if (textures.size() < 6) {
-        throw exception("At least six textures must be loaded");
+        throw std::exception("At least six textures must be loaded");
     }
 
     vector<FigureVariant> figures;
@@ -44,8 +48,8 @@ vector<FigureVariant> create_variants(vector<Texture*> textures) {
         i.type = FigureType::I;
         i.texture = textures.at(1);
 
-        vector<XY> i_rotation1 = {p00, p01, p02, p03};
-        vector<XY> i_rotation2 = {p00, p10, p20, p30};
+        std::vector<XY> i_rotation1 = {p00, p01, p02, p03};
+        std::vector<XY> i_rotation2 = {p00, p10, p20, p30};
 
         i.rotations.push_back(i_rotation1);
         i.rotations.push_back(i_rotation2);
@@ -61,10 +65,10 @@ vector<FigureVariant> create_variants(vector<Texture*> textures) {
         t.type = FigureType::T;
         t.texture = textures.at(2);
 
-        vector<XY> t_rotation1 = {p00, p01, p11, p02};
-        vector<XY> t_rotation2 = {p00, p10, p11, p20};
-        vector<XY> t_rotation3 = {p01, p10, p11, p12};
-        vector<XY> t_rotation4 = {p01, p10, p11, p21};
+        std::vector<XY> t_rotation1 = {p00, p01, p11, p02};
+        std::vector<XY> t_rotation2 = {p00, p10, p11, p20};
+        std::vector<XY> t_rotation3 = {p01, p10, p11, p12};
+        std::vector<XY> t_rotation4 = {p01, p10, p11, p21};
 
         t.rotations.push_back(t_rotation1);
         t.rotations.push_back(t_rotation2);
@@ -82,8 +86,8 @@ vector<FigureVariant> create_variants(vector<Texture*> textures) {
         s.type = FigureType::S;
         s.texture = textures.at(3);
 
-        vector<XY> s_rotation1 = {p01, p10, p11, p20};
-        vector<XY> s_rotation2 = {p00, p01, p11, p12};
+        std::vector<XY> s_rotation1 = {p01, p10, p11, p20};
+        std::vector<XY> s_rotation2 = {p00, p01, p11, p12};
 
         s.rotations.push_back(s_rotation1);
         s.rotations.push_back(s_rotation2);
@@ -99,10 +103,10 @@ vector<FigureVariant> create_variants(vector<Texture*> textures) {
         l.type = FigureType::L;
         l.texture = textures.at(4);
 
-        vector<XY> l_rotation1 = {p00, p01, p02, p12};
-        vector<XY> l_rotation2 = {p00, p01, p10, p20};
-        vector<XY> l_rotation3 = {p00, p10, p11, p12};
-        vector<XY> l_rotation4 = {p01, p11, p20, p21};
+        std::vector<XY> l_rotation1 = {p00, p01, p02, p12};
+        std::vector<XY> l_rotation2 = {p00, p01, p10, p20};
+        std::vector<XY> l_rotation3 = {p00, p10, p11, p12};
+        std::vector<XY> l_rotation4 = {p01, p11, p20, p21};
 
         l.rotations.push_back(l_rotation1);
         l.rotations.push_back(l_rotation2);
@@ -120,10 +124,10 @@ vector<FigureVariant> create_variants(vector<Texture*> textures) {
         j.type = FigureType::J;
         j.texture = textures.at(5);
 
-        vector<XY> j_rotation1 = {p02, p10, p11, p12};
-        vector<XY> j_rotation2 = {p00, p01, p11, p21};
-        vector<XY> j_rotation3 = {p00, p10, p01, p02};
-        vector<XY> j_rotation4 = {p00, p10, p20, p21};
+        std::vector<XY> j_rotation1 = {p02, p10, p11, p12};
+        std::vector<XY> j_rotation2 = {p00, p01, p11, p21};
+        std::vector<XY> j_rotation3 = {p00, p10, p01, p02};
+        std::vector<XY> j_rotation4 = {p00, p10, p20, p21};
 
         j.rotations.push_back(j_rotation1);
         j.rotations.push_back(j_rotation2);

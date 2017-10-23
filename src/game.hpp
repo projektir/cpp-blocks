@@ -14,8 +14,6 @@
 #include "figure.hpp"
 #include "utils.hpp"
 
-using namespace std;
-
 int start();
 
 #endif /* GAME_HPP */

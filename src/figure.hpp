@@ -12,21 +12,26 @@
 #include "utils.hpp"
 #include "figure_variant.hpp"
 
-using namespace std;
-
 class Figure {
-    bool will_collide(const map<XY, Texture*>& grid, Direction direction);
-    static bool collides_with_grid(const map<XY, Texture*>& grid, const Rect test_rect);
+    //using vector = std::vector;
+    //using map = std::map;
+
+    using Rect = SDL2pp::Rect;
+    using Renderer = SDL2pp::Renderer;
+    using Texture = SDL2pp::Texture;
+
+    bool will_collide(const std::map<XY, Texture*>& grid, Direction direction);
+    static bool collides_with_grid(const std::map<XY, Texture*>& grid, const Rect test_rect);
 public:
     FigureVariant variant;
     char rotation;
-    vector<Rect> squares;
+    std::vector<Rect> squares;
 
-    Figure(const vector<FigureVariant>& figure_variants);
+    Figure(const std::vector<FigureVariant>& figure_variants);
 
     int render(Renderer& renderer);
-    void move(const map<XY, Texture*>& grid, Direction direction);
-    void rotate(const map<XY, Texture*>& grid);
+    void move(const std::map<XY, Texture*>& grid, Direction direction);
+    void rotate(const std::map<XY, Texture*>& grid);
 };
 
 #endif /* FIG_HPP */

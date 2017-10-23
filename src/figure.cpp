@@ -1,6 +1,12 @@
 #include "figure.hpp"
 
-Figure::Figure(const vector<FigureVariant>& figure_variants) {
+using std::vector;
+
+using SDL2pp::NullOpt;
+using SDL2pp::Rect;
+using SDL2pp::Renderer;
+
+Figure::Figure(const std::vector<FigureVariant>& figure_variants) {
     auto variant_index = rand() % figure_variants.size();
     auto random_variant = figure_variants.at(variant_index);
 
@@ -28,12 +34,12 @@ int Figure::render(Renderer& renderer) try {
     }
 
     return 0;
-} catch (exception& e) {
-	cerr << e.what() << endl;
+} catch (std::exception& e) {
+	std::cerr << e.what() << std::endl;
 	return 1;
 }
 
-void Figure::move(const map<XY, Texture*>& grid, Direction direction) {
+void Figure::move(const std::map<XY, Texture*>& grid, Direction direction) {
     if (will_collide(grid, direction)) {
         return;
     }
@@ -58,7 +64,7 @@ void Figure::move(const map<XY, Texture*>& grid, Direction direction) {
     }
 }
 
-bool Figure::will_collide(const map<XY, Texture*>& grid, Direction direction) {
+bool Figure::will_collide(const std::map<XY, Texture*>& grid, Direction direction) {
     bool colliding = false;
     
     for (auto iter = this->squares.begin(); iter != this->squares.end(); iter++) {
@@ -123,7 +129,7 @@ bool Figure::will_collide(const map<XY, Texture*>& grid, Direction direction) {
     return colliding;
 }
 
-bool Figure::collides_with_grid(const map<XY, Texture*>& grid, const Rect test_rect) {
+bool Figure::collides_with_grid(const std::map<XY, Texture*>& grid, const Rect test_rect) {
     XY xy = {test_rect.x / SQUARE_SIZE, test_rect.y / SQUARE_SIZE};
     if (grid.at(xy) != nullptr) {
         return true;
@@ -132,7 +138,7 @@ bool Figure::collides_with_grid(const map<XY, Texture*>& grid, const Rect test_r
     return false;
 }
 
-void Figure::rotate(const map<XY, Texture*>& grid) {
+void Figure::rotate(const std::map<XY, Texture*>& grid) {
     auto new_rotation = this->rotation;
     
     {
@@ -152,7 +158,7 @@ void Figure::rotate(const map<XY, Texture*>& grid) {
         old_rect = this->squares.front();
     }
 
-    vector<Rect> new_squares;
+    std::vector<Rect> new_squares;
 
     for (auto iter = rotations.begin(); iter != rotations.end(); iter++) {
         auto rotation_offsets = *iter;

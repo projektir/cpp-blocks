@@ -1,6 +1,12 @@
 #include "game.hpp"
 
-using namespace SDL2pp;
+using std::map;
+using std::vector;
+
+using SDL2pp::NullOpt;
+using SDL2pp::Texture;
+using SDL2pp::Rect;
+using SDL2pp::Renderer;
 
 void process_key(Renderer& renderer, SDL_Keycode keycode, Figure& figure, map<XY, Texture*>& grid);
 
@@ -8,12 +14,12 @@ void render_grid(Renderer& render, map<XY, Texture*>& grid);
 void add_figure_to_grid(const Figure& figure, map<XY, Texture*>& grid);
 
 int start() try {
-    SDL sdl(SDL_INIT_VIDEO);
-    Window window("cpp-blocks", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+    SDL2pp::SDL sdl(SDL_INIT_VIDEO);
+    SDL2pp::Window window("cpp-blocks", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
         SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);    
 
-    vector<Texture*> textures;
+    std::vector<Texture*> textures;
     Texture o_texture(renderer, "images/GreenSquare.png");
     Texture i_texture(renderer, "images/RedSquare.png");
     Texture t_texture(renderer, "images/BlueSquare.png");
@@ -80,8 +86,8 @@ int start() try {
     }
 
     return 0;
-} catch (exception& e) {
-	cerr << e.what() << endl;
+} catch (std::exception& e) {
+	std::cerr << e.what() << std::endl;
 	return 1;
 }
 
