@@ -38,8 +38,8 @@ int start() try {
     renderer.SetDrawColor(0, 0, 0, 255);
 
     map<XY, Texture*> grid;
-    int grid_width = SCREEN_WIDTH / SQUARE_SIZE + 2;
-    int grid_height = SCREEN_HEIGHT / SQUARE_SIZE + 2;
+    int grid_width = WIDTH + 2;
+    int grid_height = HEIGHT + 2;
     for (int x = -1; x < grid_width; x++) {
         for (int y = -1; y < grid_height; y++) {
             XY xy = {x, y};
@@ -133,5 +133,25 @@ void add_figure_to_grid(const Figure& figure, map<XY, Texture*>& grid) {
         auto square = *iter;
         XY xy = {square.x / SQUARE_SIZE, square.y / SQUARE_SIZE};
         grid.at(xy) = figure.variant.texture;
+    }
+
+    bool filled_row = true;
+    for (int y = 0; y < HEIGHT; y++) {
+        filled_row = true;
+        for (int x = 0; x < WIDTH; x++) {
+            if (grid.at(XY{x, y}) == nullptr) {
+                filled_row = false;
+                break;
+            }
+        }
+
+        if (filled_row) {
+            int filled_y = y;
+            for (int y = filled_y; y > 0; y--) {
+                for (int x = 0; x < WIDTH; x++) {
+                    grid.at(XY{x, y}) = grid.at(XY{x, y - 1});
+                }
+            }
+        }
     }
 }
