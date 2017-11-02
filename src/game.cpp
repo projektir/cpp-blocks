@@ -8,6 +8,9 @@ using SDL2pp::Texture;
 using SDL2pp::Rect;
 using SDL2pp::Renderer;
 
+namespace ch = std::chrono;
+using timer = ch::steady_clock;
+
 void process_key(Renderer& renderer, SDL_Keycode keycode, Figure& figure, map<XY, Texture*>& grid);
 
 void render_grid(Renderer& render, map<XY, Texture*>& grid);
@@ -54,15 +57,22 @@ int start() try {
 
     SDL_Event event;
 
-    while (1) {
-        renderer.Clear();
+    auto start = timer::now();
+    auto drop_start = start;
 
+    while (1) {
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_USEREVENT:
                     if (event.user.code == FIGURE_PLACEMENT_CODE) {
                         add_figure_to_grid(figure, grid);
                         figure = Figure(figure_variants);
+
+                        auto elapsed = ch::duration_cast<ch::milliseconds>(timer::now() - start);
+                        if (elapsed >= SPEED_INCREASE_INTERVAL) {
+                            
+                            start = timer::now();
+                        }
                     }
                     break;
                 case SDL_KEYDOWN:
@@ -75,6 +85,14 @@ int start() try {
                 default:
                     break;
             }
+        }
+
+        renderer.Clear();
+        
+        auto elapsed = ch::duration_cast<ch::milliseconds>(timer::now() - drop_start);
+        if (elapsed >= FALL_SPEED_INTERVAL_START) {
+            figure.move(grid, Direction::DOWN);
+            drop_start = timer::now();
         }
 
         figure.render(renderer);
@@ -103,9 +121,6 @@ void process_key(Renderer& renderer, SDL_Keycode keycode, Figure& figure, map<XY
             break;
         case SDLK_s:
             direction = Direction::DOWN;
-            break;
-        case SDLK_w:
-            direction = Direction::UP;
             break;
         case SDLK_r:
             figure.rotate(grid);

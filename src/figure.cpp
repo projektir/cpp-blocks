@@ -48,9 +48,6 @@ void Figure::move(const std::map<XY, Texture*>& grid, Direction direction) {
         Rect& rect = *iter;
 
         switch (direction) {
-            case Direction::UP:
-                rect.y -= SQUARE_SIZE;
-                break;
             case Direction::DOWN:
                 rect.y += SQUARE_SIZE;
                 break;
@@ -75,16 +72,6 @@ bool Figure::will_collide(const std::map<XY, Texture*>& grid, Direction directio
         test_rect.y = rect.y;
 
         switch (direction) {
-            case Direction::UP:
-                test_rect.y -= SQUARE_SIZE;
-
-                if (collides_with_grid(grid, test_rect) ||
-                    test_rect.y >= SCREEN_HEIGHT || test_rect.y < 0) {
-
-                    colliding = true;
-                }
-
-                break;
             case Direction::DOWN:
                 test_rect.y += SQUARE_SIZE;
 
