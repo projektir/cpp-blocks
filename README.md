@@ -1,5 +1,7 @@
 # cpp-blocks
 
+<a href="https://ci.appveyor.com/project/projektir/cpp-blocks/"><img src="https://ci.appveyor.com/api/projects/status/tvh49sbsuadkcavq/branch/master?svg=true"></a>
+
 ![blocks](cpp-blocks.png)
 
 To build via VC++:
