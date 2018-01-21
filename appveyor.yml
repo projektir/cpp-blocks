@@ -5,11 +5,18 @@ configuration:
   - Debug
 
 install:
-  appveyor-retry appveyor DownloadFile https://www.libsdl.org/release/SDL2-devel-2.0.7-VC.zip
+  # Download SDL2pp
+  - mkdir extlib
+  - git clone https://github.com/libSDL2pp/libSDL2pp.git extlib/libSDL2pp
+  # Download SDL2 libraries
+  - appveyor-retry appveyor DownloadFile https://www.libsdl.org/release/SDL2-devel-2.0.7-VC.zip
+  - 7z x SDL2-devel-2.0.7-VC.zip
+  - appveyor-retry appveyor DownloadFile https://www.libsdl.org/projects/SDL_image/release/SDL2_image-devel-2.0.2-VC.zip
+  - 7z x SDL2_image-devel-2.0.2-VC.zip
+  - dir
 
 before_build:
-  - ls
-  - cmake .. -G "Visual Studio 15 2017 Win64" -DSDL2PP_WITH_TTF=OFF -DSDL2PP_WITH_MIXER=OFF -DCMAKE_PREFIX_PATH="<your_SDL_folder>/SDL2;<your_SDL_folder>/SDL2_image" -DCMAKE_LIBRARY_ARCHITECTURE=x64
+  - cmake -G "Visual Studio 15 2017 Win64" -DSDL2PP_WITH_TTF=OFF -DSDL2PP_WITH_MIXER=OFF -DCMAKE_PREFIX_PATH="C:/projects/cpp-blocks/SDL2-2.0.7;C:/projects/cpp-blocks/SDL2_image-2.0.2" -DCMAKE_LIBRARY_ARCHITECTURE=x64
   
 build:
   project: $(APPVEYOR_BUILD_FOLDER)\$(APPVEYOR_PROJECT_NAME).sln
