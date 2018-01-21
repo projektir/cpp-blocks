@@ -114,15 +114,19 @@ void process_key(Renderer& renderer, SDL_Keycode keycode, Figure& figure, map<XY
 
     switch (keycode) {
         case SDLK_a:
+        case SDLK_LEFT:
             direction = Direction::LEFT;
             break;
         case SDLK_d:
+        case SDLK_RIGHT:
             direction = Direction::RIGHT;
             break;
         case SDLK_s:
+        case SDLK_DOWN:
             direction = Direction::DOWN;
             break;
         case SDLK_r:
+        case SDLK_UP:
             figure.rotate(grid);
             return;
         default:
