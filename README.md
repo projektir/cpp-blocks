@@ -4,7 +4,7 @@
 
 To build via VC++:
 
-clone the `libSDL2pp` repo: https://github.com/libSDL2pp
+clone the `libSDL2pp` repo: https://github.com/libSDL2pp/libSDL2pp
 
 Place the repo in a folder named `extlib/libSDL2pp` at the root of the project
 
