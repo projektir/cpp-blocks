@@ -6,7 +6,7 @@ SET(ProjectName cpp-blocks)
 
 PROJECT(${ProjectName})
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W3")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
 SET(SourceFolder src)
 
