@@ -5,8 +5,8 @@
 To build via VC++:
 
 Original SDL libraries (make sure to download the VC development libraries):
-SDL2: https://www.libsdl.org/download-2.0.php
-SDL_image: https://www.libsdl.org/projects/SDL_image/
+- SDL2: https://www.libsdl.org/download-2.0.php
+- SDL_image: https://www.libsdl.org/projects/SDL_image/
 
 These need to be referenced to CMake for `libSDL2pp` to pick them up. The SDL development libraries come with both 32-bit and 64-bit binaries so CMake needs to be also told which one of these should be used.
 
