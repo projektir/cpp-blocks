@@ -6,7 +6,7 @@ using SDL2pp::Texture;
 
 std::vector<FigureVariant> create_variants(std::vector<SDL2pp::Texture*> textures) {
     if (textures.size() < 6) {
-        throw std::exception("At least six textures must be loaded");
+        throw std::runtime_error("At least six textures must be loaded");
     }
 
     vector<FigureVariant> figures;
