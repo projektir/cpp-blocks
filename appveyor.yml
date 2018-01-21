@@ -1,0 +1,14 @@
+image: Visual Studio 2017
+
+configuration:
+  - Release
+  - Debug
+
+install:
+  appveyor-retry appveyor DownloadFile https://www.libsdl.org/release/SDL2-devel-2.0.7-VC.zip
+
+before_build:
+  - cmake .. -G "Visual Studio 15 2017 Win64" -DSDL2PP_WITH_TTF=OFF -DSDL2PP_WITH_MIXER=OFF -DCMAKE_PREFIX_PATH="<your_SDL_folder>/SDL2;<your_SDL_folder>/SDL2_image" -DCMAKE_LIBRARY_ARCHITECTURE=x64
+  
+build:
+  project: $(APPVEYOR_BUILD_FOLDER)\$(APPVEYOR_PROJECT_NAME).sln
