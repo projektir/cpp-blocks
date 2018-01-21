@@ -19,7 +19,8 @@ Figure::Figure(const std::vector<FigureVariant>& figure_variants) {
         auto rotation_offsets = *iter;
 
         Rect rect;
-        rect.x = (rotation_offsets.x * SQUARE_SIZE);
+        // Position pieces in the middle when generating
+        rect.x = (rotation_offsets.x * SQUARE_SIZE) + (SCREEN_WIDTH - SQUARE_SIZE * 2) / 2;
         rect.y = (rotation_offsets.y * SQUARE_SIZE);
         rect.w = SQUARE_SIZE;
         rect.h = SQUARE_SIZE;
