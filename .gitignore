@@ -23,6 +23,7 @@ cpp-blocks.dir
 
 # VSCode
 .vscode/.cmaketools.json
+.vscode/c_cpp_properties.json
 
 # Libraries
 extlib
