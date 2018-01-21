@@ -25,7 +25,7 @@ class Figure {
     static bool collides_with_grid(const std::map<XY, Texture*>& grid, const Rect test_rect);
 public:
     FigureVariant variant;
-    char rotation;
+    unsigned char rotation;
     std::vector<Rect> squares;
 
     Figure(const std::vector<FigureVariant>& figure_variants);
